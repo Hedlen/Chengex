@@ -1,0 +1,776 @@
+{
+  "nav": {
+    "home": "首页",
+    "about": "关于我",
+    "services": "旅游服务",
+    "blog": "博客",
+    "video": "视频展示",
+    "contact": "联系我",
+    "admin": "后台管理",
+    "brand": "探索成都"
+  },
+  "home": {
+    "hero": {
+      "title": "探索成都，发现美好",
+      "subtitle": "成都本地专业导游，为您带来最地道的天府文化体验",
+      "cta": "开始探索",
+      "testFunction": "测试功能"
+    },
+    "about": {
+      "title": "您的成都文化专家",
+      "description": "我是一名热爱成都文化的本地导游，致力于为游客提供最地道的成都体验。拥有8年专业经验，持证上岗，用心为每位游客定制专属行程。",
+      "skills": ["专业摄影", "美食专家", "历史文化", "路线规划"],
+      "learnMore": "了解更多"
+    },
+    "services": {
+      "title": "精选旅游服务",
+      "subtitle": "为您量身定制的成都深度体验之旅",
+      "learnDetails": "了解详情",
+      "serviceData": {
+        "classic": {
+          "title": "成都经典一日游",
+          "duration": "4-6小时",
+          "description": "游览成都最具代表性的景点，感受天府文化的魅力",
+          "highlights": ["宽窄巷子", "锦里古街", "武侯祠", "人民公园"]
+        },
+        "food": {
+          "title": "美食文化体验",
+          "duration": "2-3小时", 
+          "description": "品尝正宗川菜，了解成都饮食文化的精髓",
+          "highlights": ["火锅体验", "小吃街", "茶馆文化", "川菜制作"]
+        },
+        "history": {
+          "title": "历史文化导览",
+          "duration": "3-4小时",
+          "description": "深度了解成都历史，探寻古蜀文明的足迹",
+          "highlights": ["金沙遗址", "杜甫草堂", "青羊宫", "文殊院"]
+        }
+      }
+    },
+    "blog": {
+      "title": "旅行故事与攻略",
+      "subtitle": "发现内幕知识和旅行灵感",
+      "viewMore": "查看全部文章",
+      "readMore": "阅读更多",
+      "views": "浏览量",
+      "author": "张导游",
+      "data": {
+        "photography": {
+          "title": "成都最佳摄影地点",
+          "excerpt": "发现成都最美的摄影地点，捕捉您的美好时光",
+          "category": "摄影",
+          "readTime": "5分钟阅读",
+          "views": 1234,
+          "tags": ["摄影", "景点", "攻略"]
+        },
+        "cuisine": {
+          "title": "川菜文化深度解析",
+          "excerpt": "了解川菜的历史渊源和文化内涵",
+          "category": "美食",
+          "readTime": "8分钟阅读",
+          "views": 2156,
+          "tags": ["美食", "文化", "川菜"]
+        },
+        "metro": {
+          "title": "成都地铁出行指南",
+          "excerpt": "详细的成都地铁使用攻略，让您出行更便捷",
+          "category": "交通",
+          "readTime": "6分钟阅读",
+          "views": 1876,
+          "tags": ["交通", "地铁", "出行"]
+        }
+      }
+    }
+  },
+  "about": {
+    "title": "关于我",
+    "hero": {
+      "title": "您的成都文化专家",
+      "subtitle": "我是一名热爱成都文化的本地导游，致力于为游客提供最地道的成都体验。拥有8年专业经验，持证上岗，用心为每位游客定制专属行程。",
+      "location": "成都，四川",
+      "languages": "中文 / English"
+    },
+    "stats": {
+      "experience": "年经验",
+      "clients": "位客户",
+      "tours": "次导览",
+      "rating": "评分"
+    },
+    "personal": {
+      "title": "个人介绍",
+      "name": "张导游",
+      "experience": "5年导游经验",
+      "description": "我是一名热爱成都文化的本地导游，拥有丰富的旅游服务经验。我致力于为每一位游客提供最地道、最难忘的成都体验。"
+    },
+    "story": {
+      "title": "我的故事",
+      "subtitle": "分享我与成都的不解之缘",
+      "passion": {
+        "title": "对导游工作的热爱",
+        "content": "从小就对历史文化充满兴趣，大学毕业后选择成为一名导游。8年来，我接待了来自世界各地的游客，每一次的讲解都是一次文化的传递和交流。",
+        "points": [
+          "用心为每位游客定制专属行程",
+          "深入了解成都的历史文化底蕴",
+          "不断学习提升专业服务水平",
+          "真诚分享成都的美好的魅力"
+        ]
+      },
+      "chengdu": {
+        "title": "我眼中的成都",
+        "content": "成都是一座包容开放的城市，既有深厚的历史文化底蕴，又有现代都市的活力。在这里，你可以感受到慢生活的惬意，也能体验到美食文化的丰富多彩。",
+        "features": [
+          "悠久的历史文化传承",
+          "丰富多样的美食文化",
+          "宜居的生活环境",
+          "热情好客的成都人"
+        ]
+      }
+    },
+    "highlights": {
+      "kuanzhai": {
+        "title": "宽窄巷子",
+        "description": "体验老成都的慢生活"
+      },
+      "jinli": {
+        "title": "锦里古街",
+        "description": "三国文化的活化石"
+      },
+      "panda": {
+        "title": "大熊猫基地",
+        "description": "与国宝亲密接触"
+      },
+      "sichuanMuseum": {
+        "title": "川菜博物馆",
+        "description": "舌尖上的文化之旅"
+      }
+    },
+    "experience": "8年专业经验",
+    "skills": {
+      "title": "专业技能",
+      "subtitle": "多年积累的专业能力，为您提供优质服务",
+      "chineseGuide": "中文导游",
+      "englishGuide": "英语导游",
+      "photography": "摄影技术",
+      "history": "历史文化",
+      "foodRecommendation": "美食推荐",
+      "routePlanning": "路线规划"
+    },
+    "certifications": {
+      "title": "专业认证",
+      "subtitle": "权威机构认证，专业服务保障",
+      "nationalLicense": {
+        "title": "国家导游资格证",
+        "issuer": "中国文化和旅游部"
+      },
+      "englishCertificate": {
+        "title": "英语导游专业证书",
+        "issuer": "四川省旅游协会"
+      },
+      "culturalHeritage": {
+        "title": "文化遗产讲解员证书",
+        "issuer": "成都市文物局"
+      }
+    },
+    "chengdu": {
+      "title": "成都印象",
+      "subtitle": "我眼中的天府之国"
+    },
+    "languages": {
+      "title": "语言能力",
+      "chinese": "中文（母语）",
+      "english": "英语（流利）",
+      "advantage": "双语服务，无障碍沟通"
+    }
+  },
+  "services": {
+    "title": "旅游服务",
+    "subtitle": "精心设计的成都体验之旅",
+    "bookNow": "立即预订",
+    "learnMore": "了解详情",
+    "included": "服务包含",
+    "duration": "时长",
+    "highlights": "亮点体验",
+    "hero": {
+      "title": "专业旅游服务",
+      "subtitle": "与专业本地导游一起，发现成都的地道魅力"
+    },
+    "tours": {
+      "title": "精选线路",
+      "subtitle": "精心策划的成都体验之旅"
+    },
+    "packages": {
+      "title": "旅游套餐",
+      "subtitle": "为您的成都之旅选择完美套餐"
+    },
+    "testimonials": {
+      "title": "游客评价",
+      "subtitle": "来自满意游客的真实体验"
+    },
+    "cta": {
+      "title": "准备好探索成都了吗？",
+      "subtitle": "立即联系我们，开始规划您的难忘之旅"
+    },
+    "labels": {
+      "popular": "热门推荐",
+      "mostPopular": "最受欢迎",
+      "bookNow": "立即预订",
+      "selectPackage": "选择套餐",
+      "contactNow": "立即咨询",
+      "viewMoreServices": "查看更多服务"
+    },
+    "features": {
+      "professionalGuide": {
+        "title": "专业导游服务",
+        "description": "8年经验，持证上岗"
+      },
+      "routePlanning": {
+        "title": "精选路线规划", 
+        "description": "避开人群，发现隐藏美景"
+      },
+      "photography": {
+        "title": "摄影指导服务",
+        "description": "记录最美的旅行瞬间"
+      },
+      "foodRecommendations": {
+        "title": "地道美食推荐",
+        "description": "品尝正宗川菜文化"
+      }
+    },
+    "packageDetails": {
+      "classic": {
+        "name": "经典一日游",
+        "duration": "8小时",
+        "price": "¥300",
+        "includes": [
+          "专业导游服务",
+          "景点门票",
+          "交通接送",
+          "午餐推荐"
+        ]
+      },
+      "indepth": {
+        "name": "深度两日游",
+        "duration": "2天1夜",
+        "price": "¥800",
+        "includes": [
+          "专业导游服务",
+          "所有景点门票",
+          "酒店住宿",
+          "三餐安排",
+          "交通接送"
+        ]
+      },
+      "custom": {
+        "name": "定制私人游",
+        "duration": "灵活安排",
+        "price": "¥500起",
+        "includes": [
+          "个性化路线设计",
+          "专属导游服务",
+          "灵活时间安排",
+          "特色体验活动"
+        ]
+      }
+    },
+    "testimonialData": {
+      "zhang": {
+        "name": "张女士",
+        "location": "北京",
+        "comment": "非常专业的导游服务，让我们深度了解了成都的文化和历史。推荐的美食都很棒！"
+      },
+      "john": {
+        "name": "John Smith",
+        "location": "美国",
+        "comment": "Amazing experience! The guide was knowledgeable and spoke excellent English. Highly recommend!"
+      },
+      "li": {
+        "name": "李先生",
+        "location": "上海",
+        "comment": "带着家人来成都旅游，孩子们特别喜欢熊猫基地的行程。导游很有耐心，服务周到。"
+      }
+    },
+    "serviceData": {
+      "classic": {
+        "title": "成都经典一日游",
+        "description": "游览成都最具代表性的景点，感受天府文化的魅力",
+        "duration": "4-6小时",
+        "highlights": ["宽窄巷子", "锦里古街", "武侯祠", "人民公园"]
+      },
+      "food": {
+        "title": "美食文化体验",
+        "description": "品尝正宗川菜，了解成都饮食文化的精髓",
+        "duration": "2-3小时",
+        "highlights": ["火锅体验", "小吃街", "茶馆文化", "川菜制作"]
+      },
+      "history": {
+        "title": "历史文化导览",
+        "description": "深度了解成都历史，探寻古蜀文明的足迹",
+        "duration": "3-4小时",
+        "highlights": ["金沙遗址", "杜甫草堂", "青羊宫", "文殊院"]
+      }
+    }
+  },
+  "blog": {
+    "title": "旅行博客",
+    "subtitle": "分享成都美好的与故事",
+    "hero": {
+      "title": "旅行博客",
+      "subtitle": "分享成都美好的与故事"
+    },
+    "search": {
+      "placeholder": "搜索文章..."
+    },
+    "featured": {
+      "title": "精选文章"
+    },
+    "categories": {
+      "all": "全部",
+      "tours": "旅游攻略",
+      "food": "美食推荐",
+      "culture": "文化体验",
+      "tips": "旅行贴士",
+      "announcement": "公告",
+      "uncategorized": "未分类"
+    },
+    "readMore": "阅读全文",
+    "share": "分享",
+    "comments": "评论",
+    "newsletter": {
+      "title": "订阅我们的旅行资讯",
+      "subtitle": "获取最新的旅行攻略和精彩内容",
+      "placeholder": "请输入您的邮箱地址",
+      "subscribe": "订阅"
+    },
+    "labels": {
+      "featured": "精选文章",
+      "readFull": "阅读全文",
+      "readMore": "阅读更多",
+      "loadMore": "加载更多",
+      "subscribe": "订阅",
+      "noArticles": "暂无文章",
+      "noArticlesDesc": "管理员还没有发布任何文章",
+      "readTime": "分钟阅读",
+      "views": "次阅读",
+      "draft": "草稿"
+    },
+    "notFound": {
+      "title": "文章未找到",
+      "description": "抱歉，您要查看的文章不存在或已被删除。",
+      "backToBlog": "返回博客"
+    },
+    "blogData": {
+      "photography": {
+        "title": "成都最佳拍照地点推荐",
+        "excerpt": "发现成都最美的拍照圣地，记录您的美好时光",
+        "content": "成都作为一座历史悠久的城市，拥有众多适合拍照的美丽地点...",
+        "tags": ["摄影", "景点", "攻略"]
+      },
+      "cuisine": {
+        "title": "川菜文化深度解析",
+        "excerpt": "了解川菜的历史渊源和文化内涵",
+        "content": "川菜作为中国八大菜系之一，有着深厚的文化底蕴...",
+        "tags": ["美食", "文化", "川菜"]
+      },
+      "metro": {
+        "title": "成都地铁出行指南",
+        "excerpt": "详细的成都地铁使用攻略，让您出行更便捷",
+        "content": "成都地铁系统日益完善，为游客提供了便捷的出行方式...",
+        "tags": ["交通", "地铁", "出行"]
+      }
+    }
+  },
+  "videos": {
+    "title": "视频展示",
+    "subtitle": "用镜头记录成都之美",
+    "hero": {
+      "title": "视频展示",
+      "subtitle": "用镜头记录成都之美"
+    },
+    "featured": {
+      "title": "精选视频",
+      "subtitle": "最受欢迎的成都旅游视频"
+    },
+    "categories": {
+      "all": "全部",
+      "tours": "旅游线路",
+      "culture": "文化体验",
+      "food": "美食文化",
+      "tips": "旅行贴士",
+      "scenery": "风景名胜",
+      "life": "生活方式"
+    },
+    "labels": {
+      "featured": "精选推荐",
+      "loadMore": "加载更多视频",
+      "subscribe": "订阅频道",
+      "contact": "联系合作",
+      "popular": "热门"
+    },
+    "stats": {
+      "originalVideos": "原创视频",
+      "totalViews": "总播放量",
+      "subscribers": "订阅用户",
+      "rating": "用户评分"
+    },
+    "features": {
+      "hdVideo": "高清视频",
+      "onSiteFilming": "实地拍摄",
+      "professionalNarration": "专业解说"
+    },
+    "cta": {
+      "title": "想要了解更多成都故事？",
+      "subtitle": "订阅我们的频道，获取最新的成都旅游视频和攻略"
+    },
+    "filters": {
+      "all": "全部",
+      "youtube": "YouTube",
+      "tiktok": "TikTok"
+    },
+    "noVideos": {
+      "title": "暂无视频",
+      "description": "管理员还没有添加任何视频内容"
+    },
+    "actions": {
+      "watchVideo": "点击观看"
+    },
+    "library": {
+      "title": "视频库",
+      "popularVideos": "热门视频"
+    },
+    "sorting": {
+      "label": "排序:",
+      "latest": "最新发布",
+      "popular": "最受欢迎",
+      "views": "观看次数",
+      "likes": "点赞数"
+    },
+    "filtering": {
+      "advanced": "高级筛选",
+      "clear": "清除筛选",
+      "platform": "平台:",
+      "category": "分类:",
+      "allCategories": "全部分类",
+      "duration": "时长范围",
+      "allDurations": "全部时长",
+      "short": "短视频 (< 5分钟)",
+      "medium": "中等 (5-20分钟)",
+      "long": "长视频 (> 20分钟)",
+      "viewCount": "观看次数",
+      "allViews": "全部",
+      "views1k": "1000+ 次观看",
+      "views10k": "10000+ 次观看",
+      "views100k": "100000+ 次观看",
+      "publishTime": "发布时间",
+      "allTime": "全部时间",
+      "today": "今天",
+      "thisWeek": "本周",
+      "thisMonth": "本月",
+      "thisYear": "今年"
+    },
+    "status": {
+      "found": "共找到 {count} 个视频",
+      "virtualScroll": "(虚拟滚动)",
+      "loading": "加载中...",
+      "loadFailed": "加载失败",
+      "noVideosFound": "没有找到相关视频",
+      "adjustSearchTerms": "尝试调整搜索条件或筛选选项",
+      "resetFilters": "重置筛选",
+      "performanceEnabled": "性能优化已启用",
+      "virtualScrollEnabled": "检测到大量视频（{count}个），已自动启用虚拟滚动以提升性能"
+    },
+    "recommendations": {
+      "title": "为您推荐",
+      "subtitle": "基于您的兴趣为您精选的视频内容",
+      "refresh": "刷新推荐"
+    },
+    "viewMode": {
+      "grid": "Grid",
+      "list": "List"
+    },
+    "sync": {
+      "error": "同步错误",
+      "connectionError": "连接错误",
+      "disabled": "同步功能已禁用"
+    },
+    "search": {
+      "placeholder": "搜索视频..."
+    },
+    "time": {
+      "dayAgo": "1天前",
+      "daysAgo": "{{count}}天前",
+      "weeksAgo": "{{count}}周前",
+      "monthsAgo": "{{count}}个月前",
+      "yearsAgo": "{{count}}年前"
+    },
+    "interactions": {
+      "like": "点赞",
+      "liked": "已点赞",
+      "unlike": "取消点赞",
+      "bookmark": "收藏",
+      "bookmarked": "已收藏",
+      "unbookmark": "取消收藏",
+      "share": "分享",
+      "watch": "观看",
+      "views": "观看",
+      "subscribe": "订阅",
+      "follow": "关注",
+      "tooltips": {
+        "like": "点赞",
+        "liked": "取消点赞",
+        "bookmark": "收藏",
+        "bookmarked": "取消收藏",
+        "share": "分享视频",
+        "subscribe": "订阅 YouTube 频道",
+        "follow": "关注 TikTok 账号"
+      }
+    },
+    "platform": {
+      "local": "本地"
+    }
+  },
+  "contact": {
+    "title": "联系我",
+    "subtitle": "开启你的成都之旅",
+    "form": {
+      "title": "预订咨询",
+      "name": "姓名",
+      "email": "邮箱",
+      "phone": "电话",
+      "service": "服务类型",
+      "date": "出行日期",
+      "guests": "出行人数",
+      "message": "详细需求",
+      "submit": "提交咨询",
+      "success": "感谢您的咨询！我们会尽快与您联系。",
+      "error": "发送失败，请重试",
+      "placeholders": {
+        "name": "请输入您的姓名",
+        "email": "请输入您的邮箱",
+        "phone": "请输入您的电话号码",
+        "service": "请选择服务类型",
+        "guests": "请选择出行人数",
+        "message": "请详细描述您的出行需求和特殊要求..."
+      }
+    },
+    "info": {
+      "title": "联系方式",
+      "subtitle": "多种联系方式，随时为您服务",
+      "wechat": "微信联系",
+      "response": "通常24小时内回复",
+      "social": "社交媒体",
+      "phone": {
+        "title": "电话咨询",
+        "description": "工作时间内接听"
+      },
+      "email": {
+        "title": "邮件联系",
+        "description": "24小时内回复"
+      },
+      "wechatConsult": {
+        "title": "微信咨询",
+        "description": "扫码添加微信"
+      },
+      "whatsapp": {
+        "title": "WhatsApp联系",
+        "description": "快速联系，即时回复"
+      },
+      "instagram": {
+        "title": "Instagram关注",
+        "description": "关注我们的旅行分享"
+      },
+      "office": {
+        "title": "办公地址",
+        "value": "成都市锦江区春熙路",
+        "description": "预约面谈"
+      }
+    },
+    "workingHours": {
+      "title": "工作时间",
+      "emergency": "紧急联系：节假日期间如有紧急事务，可通过微信联系我们，我们会尽快回复。",
+      "schedule": {
+        "weekdays": "周一 - 周五",
+        "saturday": "周六",
+        "sunday": "周日"
+      }
+    },
+    "services": {
+      "classic": "经典一日游",
+      "food": "美食文化体验",
+      "history": "历史文化导览",
+      "panda": "熊猫基地游",
+      "custom": "定制私人游",
+      "other": "其他服务"
+    },
+    "guestOptions": {
+      "1": "1人",
+      "2": "2人",
+      "3-5": "3-5人",
+      "6-10": "6-10人",
+      "10+": "10人以上"
+    },
+    "features": {
+      "quickResponse": "快速响应",
+      "professionalService": "专业服务",
+      "thoughtfulArrangement": "贴心安排"
+    },
+    "faqs": {
+      "title": "常见问题",
+      "q1": {
+        "question": "如何预订旅游服务？",
+        "answer": "您可以通过电话、邮件或微信联系我们，我们会根据您的需求定制专属的旅行方案。"
+      },
+      "q2": {
+        "question": "是否提供英文导游服务？",
+        "answer": "是的，我们提供专业的中英文双语导游服务，确保国际游客能够深度了解成都文化。"
+      },
+      "q3": {
+        "question": "旅游费用包含哪些项目？",
+        "answer": "费用通常包含导游服务、景点门票、交通等，具体项目会在预订时详细说明。"
+      },
+      "q4": {
+        "question": "可以临时取消或更改行程吗？",
+        "answer": "我们理解旅行计划可能会有变化，提前24小时通知可免费更改，具体政策请咨询客服。"
+      }
+    },
+    "wechatSection": {
+      "title": "微信二维码咨询",
+      "description": "扫描二维码添加微信<br />获取更多旅游资讯"
+    },
+    "location": {
+      "title": "我们的位置",
+      "subtitle": "欢迎预约到访，面对面详细讨论您的旅行计划",
+      "address": {
+        "title": "办公地址",
+        "detail": "成都市锦江区春熙路步行街<br />国际金融中心15楼1508室"
+      },
+      "transport": {
+        "title": "交通指引",
+        "detail": "地铁2号线春熙路站A出口<br />步行3分钟"
+      }
+    }
+  },
+  "admin": {
+    "title": "后台管理",
+    "login": "登录",
+    "dashboard": "控制台",
+    "content": "内容管理",
+    "media": "媒体管理",
+    "schedule": "排期管理"
+  },
+  "login": {
+    "title": "管理员登录",
+    "subtitle": "请登录以访问后台管理系统",
+    "username": "用户名",
+    "password": "密码",
+    "usernamePlaceholder": "请输入用户名",
+    "passwordPlaceholder": "请输入密码",
+    "submit": "登录",
+    "loggingIn": "登录中...",
+    "footer": "仅限管理员访问",
+    "demo": {
+      "title": "演示账号",
+      "username": "用户名",
+      "password": "密码"
+    },
+    "error": {
+      "invalidCredentials": "用户名或密码错误",
+      "general": "登录失败，请稍后重试"
+    }
+  },
+  "common": {
+    "loading": "加载中...",
+    "error": "出错了",
+    "success": "成功",
+    "cancel": "取消",
+    "confirm": "确认",
+    "save": "保存",
+    "edit": "编辑",
+    "delete": "删除",
+    "add": "添加",
+    "search": "搜索",
+    "filter": "筛选",
+    "more": "更多",
+    "less": "收起",
+    "viewAll": "查看全部",
+    "backToTop": "返回顶部",
+    "firstPage": "首页",
+    "lastPage": "末页"
+  },
+  "admin": {
+    "title": "后台管理",
+    "tabs": {
+      "dashboard": "仪表盘",
+      "bookings": "预订管理",
+      "posts": "文章管理",
+      "videos": "视频管理",
+      "messages": "消息管理",
+      "users": "用户管理",
+      "settings": "系统设置"
+    },
+    "stats": {
+      "totalBookings": "总预订数",
+      "totalRevenue": "总收入",
+      "totalPosts": "总文章数",
+      "totalViews": "总浏览量"
+    },
+    "dashboard": {
+      "title": "管理仪表板",
+      "lastUpdated": "最后更新",
+      "totalBookings": "总预订",
+      "blogPosts": "博客文章",
+      "published": "已发布",
+      "videoContent": "视频内容",
+      "totalViews": "总观看",
+      "unreadMessages": "未读消息",
+      "needReply": "需要回复",
+      "recentBookings": "最近预订",
+      "latestPosts": "最新文章"
+    },
+    "bookingStatus": {
+      "confirmed": "已确认",
+      "pending": "待确认",
+      "completed": "已完成"
+    },
+    "bookingManagement": "预订管理",
+    "table": {
+      "customer": "客户",
+      "service": "服务",
+      "amount": "金额",
+      "status": "状态",
+      "date": "日期"
+    },
+    "logout": "退出登录",
+    "logoutConfirm": "确定要退出登录吗？",
+    "recentBookings": "最近预订",
+    "recentPosts": "最近文章",
+    "views": "浏览量",
+    "status": {
+      "pending": "待确认",
+      "confirmed": "已确认",
+      "completed": "已完成",
+      "published": "已发布",
+      "draft": "草稿"
+    },
+    "bookings": {
+      "title": "预订管理",
+      "add": "新增预订",
+      "customer": "客户",
+      "service": "服务",
+      "date": "日期",
+      "guests": "人数",
+      "amount": "金额",
+      "status": "状态"
+    },
+    "posts": {
+      "title": "文章管理",
+      "add": "新增文章"
+    },
+    "search": "搜索...",
+    "filter": "筛选",
+    "actions": "操作",
+    "comingSoon": "即将推出",
+    "messagesDescription": "消息管理功能正在开发中",
+    "usersDescription": "用户管理功能正在开发中",
+    "settingsDescription": "系统设置功能正在开发中"
+  }
+}

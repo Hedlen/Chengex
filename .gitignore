@@ -1,0 +1,222 @@
+# ===========================================
+# 依赖和包管理
+# ===========================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# ===========================================
+# 构建输出
+# ===========================================
+dist/
+dist-ssr/
+build/
+out/
+.next/
+.nuxt/
+.output/
+.vercel/
+.netlify/
+
+# ===========================================
+# 环境变量文件 (重要：包含敏感信息)
+# ===========================================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.production
+.env.staging
+.env.mysql
+.env.tencent
+.env.sqlite
+*.env
+
+# ===========================================
+# 数据库文件
+# ===========================================
+*.db
+*.sqlite
+*.sqlite3
+data/
+database/*.db
+database/*.sqlite
+*.sql.backup
+
+# ===========================================
+# 日志文件
+# ===========================================
+logs/
+*.log
+log/
+*.log.*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ===========================================
+# 临时文件和缓存
+# ===========================================
+.cache/
+.temp/
+.tmp/
+*.tmp
+*.temp
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# ===========================================
+# 编辑器和IDE文件
+# ===========================================
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.project
+.classpath
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# ===========================================
+# 操作系统文件
+# ===========================================
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msm
+*.msp
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ===========================================
+# 备份文件
+# ===========================================
+*.backup
+*.bak
+*.old
+*.orig
+backup/
+backups/
+*.sql.backup
+*.dump
+
+# ===========================================
+# 上传和媒体文件
+# ===========================================
+uploads/
+upload/
+media/
+public/uploads/
+static/uploads/
+assets/uploads/
+
+# ===========================================
+# 测试和覆盖率报告
+# ===========================================
+coverage/
+.nyc_output/
+.coverage/
+*.lcov
+junit.xml
+test-results/
+.jest/
+
+# ===========================================
+# 包管理器锁文件 (可选择性忽略)
+# ===========================================
+# 如果团队使用不同的包管理器，可以忽略其他锁文件
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# ===========================================
+# 运行时文件
+# ===========================================
+*.pid
+*.seed
+*.pid.lock
+.lock-wscript
+
+# ===========================================
+# SSL证书和密钥
+# ===========================================
+*.pem
+*.key
+*.crt
+*.cert
+ssl/
+certificates/
+
+# ===========================================
+# 配置文件 (包含敏感信息)
+# ===========================================
+config/local.js
+config/production.js
+secrets.json
+credentials.json
+
+# ===========================================
+# PM2 和进程管理
+# ===========================================
+.pm2/
+ecosystem.config.local.js
+
+# ===========================================
+# Docker
+# ===========================================
+.dockerignore
+docker-compose.override.yml
+
+# ===========================================
+# 其他工具生成的文件
+# ===========================================
+.eslintcache
+.stylelintcache
+.parcel-cache/
+.vite/
+.turbo/
