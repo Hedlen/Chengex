@@ -155,6 +155,13 @@ yum install -y wget && wget -O install.sh http://download.bt.cn/install/install_
 2. 使用安装时生成的用户名和密码登录
 3. 首次登录建议修改默认端口和密码
 
+```
+外网面板地址:  http://101.42.21.165:39195/1680b888
+内网面板地址:  http://10.0.16.13:39195/1680b888
+username: 90jngcxq
+password: ********
+```
+
 ##### 2. 环境安装
 
 在宝塔面板中安装必要的运行环境：
