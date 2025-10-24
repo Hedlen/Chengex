@@ -36,6 +36,8 @@ out/
 .env.tencent
 .env.sqlite
 *.env
+# 允许 .env.example 文件被提交
+!.env.example
 
 # ===========================================
 # 数据库文件

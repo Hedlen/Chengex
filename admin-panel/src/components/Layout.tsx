@@ -17,6 +17,7 @@ import {
   BarChart3
 } from 'lucide-react';
 import { SidebarLogo } from './Logo';
+import { ConnectionStatus } from './ConnectionStatus';
 
 const Layout: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -155,6 +156,9 @@ const Layout: React.FC = () => {
             </div>
 
             <div className="flex items-center space-x-4">
+              {/* 连接状态 */}
+              <ConnectionStatus className="hidden md:block" />
+              
               {/* 通知按钮 */}
               <button className="p-2 text-gray-400 hover:text-gray-500 hover:bg-gray-100 rounded-full">
                 <Bell className="h-6 w-6" />
