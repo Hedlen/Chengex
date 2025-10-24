@@ -123,6 +123,344 @@ pm2 startup
 pm2 save
 ```
 
+### 方案三：宝塔面板部署 (推荐用于服务器管理)
+
+宝塔面板是一款简单好用的服务器运维面板，支持一键LAMP/LNMP/集群/监控/网站/FTP/数据库/JAVA等100多项服务器管理功能。
+
+#### 🎯 宝塔面板部署优势
+
+- **可视化管理**：图形化界面，操作简单直观
+- **一键安装**：自动安装和配置运行环境
+- **安全防护**：内置防火墙、SSL证书管理
+- **性能监控**：实时监控服务器状态和资源使用
+- **文件管理**：在线文件编辑和管理
+- **数据库管理**：可视化数据库操作
+- **进程管理**：PM2进程监控和管理
+
+#### 📋 部署步骤
+
+##### 1. 宝塔面板访问和登录
+
+```bash
+# 如果还未安装宝塔面板，请先安装
+# Ubuntu/Debian 系统
+wget -O install.sh http://download.bt.cn/install/install-ubuntu_6.0.sh && sudo bash install.sh
+
+# CentOS 系统
+yum install -y wget && wget -O install.sh http://download.bt.cn/install/install_6.0.sh && sh install.sh
+```
+
+安装完成后：
+1. 访问面板地址：`http://你的服务器IP:8888`
+2. 使用安装时生成的用户名和密码登录
+3. 首次登录建议修改默认端口和密码
+
+##### 2. 环境安装
+
+在宝塔面板中安装必要的运行环境：
+
+**2.1 安装基础环境**
+- 进入 `软件商店` → `运行环境`
+- 安装 `Nginx` (推荐 1.20+)
+- 安装 `MySQL` (推荐 5.7+ 或 8.0+)
+- 安装 `Node.js` (推荐 18.x LTS)
+
+**2.2 安装 PM2 管理器**
+```bash
+# 在宝塔终端中执行
+npm install -g pm2
+```
+
+**2.3 验证安装**
+```bash
+node --version
+npm --version
+pm2 --version
+nginx -v
+mysql --version
+```
+
+##### 3. 项目部署
+
+**方式一：Git 克隆部署（推荐）**
+
+1. 在宝塔面板中进入 `文件` 管理
+2. 进入网站根目录（通常是 `/www/wwwroot/`）
+3. 打开终端，执行：
+
+```bash
+# 克隆项目
+git clone https://github.com/你的用户名/Chengex.git
+cd Chengex
+
+# 安装依赖
+npm install
+
+# 复制环境配置文件
+cp .env.example .env
+```
+
+**方式二：文件上传部署**
+
+1. 将项目文件打包为 zip 格式
+2. 在宝塔面板 `文件` 管理中上传并解压
+3. 进入项目目录安装依赖：
+
+```bash
+cd /www/wwwroot/Chengex
+npm install
+```
+
+##### 4. 数据库配置
+
+**4.1 创建数据库**
+1. 进入宝塔面板 `数据库` 管理
+2. 点击 `添加数据库`
+3. 填写数据库信息：
+   - 数据库名：`travelweb_db`
+   - 用户名：`travelweb_user`
+   - 密码：设置安全密码
+   - 访问权限：`本地服务器`
+
+**4.2 配置环境变量**
+
+编辑项目根目录的 `.env` 文件：
+
+```env
+# 数据库配置
+DB_TYPE=mysql
+DB_HOST=localhost
+DB_PORT=3306
+DB_NAME=travelweb_db
+DB_USER=travelweb_user
+DB_PASSWORD=你设置的数据库密码
+
+# 应用配置
+NODE_ENV=production
+JWT_SECRET=生成的安全密钥
+PORT=3001
+
+# 安全配置
+CORS_ORIGIN=https://你的域名.com
+RATE_LIMIT_MAX=1000
+TRUST_PROXY=true
+```
+
+**4.3 初始化数据库**
+```bash
+cd /www/wwwroot/Chengex
+npm run init:mysql
+```
+
+##### 5. 网站配置
+
+**5.1 添加网站**
+1. 进入宝塔面板 `网站` 管理
+2. 点击 `添加站点`
+3. 填写网站信息：
+   - 域名：你的域名（如：example.com）
+   - 根目录：`/www/wwwroot/Chengex`
+   - PHP版本：选择 `纯静态`
+
+**5.2 配置 Nginx 反向代理**
+
+点击网站的 `设置` → `反向代理` → `添加反向代理`：
+
+```nginx
+# 代理名称：TravelWeb
+# 目标URL：http://127.0.0.1:3001
+# 发送域名：$host
+```
+
+或者手动编辑 Nginx 配置文件：
+
+```nginx
+server {
+    listen 80;
+    server_name 你的域名.com;
+    
+    # 静态文件直接服务
+    location /uploads/ {
+        alias /www/wwwroot/Chengex/uploads/;
+        expires 30d;
+        add_header Cache-Control "public, immutable";
+    }
+    
+    location /admin/ {
+        alias /www/wwwroot/Chengex/admin-panel/dist/;
+        try_files $uri $uri/ /admin/index.html;
+    }
+    
+    # API 和主应用代理
+    location / {
+        proxy_pass http://127.0.0.1:3001;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+
+##### 6. SSL 证书配置
+
+**6.1 申请免费 SSL 证书**
+1. 在网站设置中点击 `SSL`
+2. 选择 `Let's Encrypt` 免费证书
+3. 填写邮箱地址并申请
+4. 开启 `强制HTTPS`
+
+**6.2 手动上传证书**
+如果有自己的证书，可以选择 `其他证书` 并上传证书文件。
+
+##### 7. 启动和监控
+
+**7.1 使用 PM2 启动应用**
+
+在宝塔终端中执行：
+
+```bash
+cd /www/wwwroot/Chengex
+
+# 构建项目
+npm run build:all
+
+# 启动应用
+pm2 start ecosystem.config.js
+
+# 设置开机自启
+pm2 startup
+pm2 save
+```
+
+**7.2 配置 PM2 管理器**
+
+1. 在宝塔面板安装 `PM2管理器` 插件
+2. 可以在面板中直接管理 Node.js 应用
+3. 查看应用状态、日志、重启等操作
+
+##### 8. 域名绑定和测试
+
+**8.1 域名解析**
+1. 在域名服务商处添加 A 记录
+2. 将域名指向服务器 IP 地址
+3. 等待 DNS 解析生效（通常 10-30 分钟）
+
+**8.2 访问测试**
+- 主网站：`https://你的域名.com`
+- 管理后台：`https://你的域名.com/admin`
+- API 接口：`https://你的域名.com/api/health`
+
+#### 🔧 宝塔面板特有配置
+
+##### 网站管理
+- **域名管理**：支持多域名绑定和重定向
+- **目录权限**：设置合适的文件权限（755 for directories, 644 for files）
+- **访问日志**：查看网站访问日志和错误日志
+- **流量统计**：监控网站流量和带宽使用
+
+##### 数据库管理
+- **可视化操作**：通过 phpMyAdmin 管理数据库
+- **备份还原**：定时自动备份数据库
+- **性能优化**：MySQL 性能调优和慢查询分析
+- **远程访问**：配置数据库远程连接权限
+
+##### 文件管理
+- **在线编辑**：直接在面板中编辑配置文件
+- **权限管理**：设置文件和目录权限
+- **压缩解压**：支持多种格式的压缩和解压
+- **文件监控**：监控重要文件的变化
+
+##### 进程管理
+- **PM2 集成**：通过面板管理 Node.js 进程
+- **资源监控**：实时查看 CPU、内存使用情况
+- **日志查看**：查看应用运行日志和错误日志
+- **自动重启**：配置进程异常时自动重启
+
+##### 安全设置
+- **防火墙**：配置端口访问规则
+- **SSH 安全**：修改 SSH 端口和密钥登录
+- **面板安全**：设置面板访问白名单
+- **SSL 管理**：自动续期 SSL 证书
+
+#### 🚨 宝塔部署故障排除
+
+##### 常见问题解决
+
+**1. Node.js 应用无法启动**
+```bash
+# 检查 Node.js 版本
+node --version
+
+# 检查端口占用
+netstat -tlnp | grep :3001
+
+# 查看 PM2 日志
+pm2 logs
+
+# 重启应用
+pm2 restart all
+```
+
+**2. 数据库连接失败**
+- 检查数据库服务状态：`systemctl status mysql`
+- 验证数据库用户权限：在宝塔数据库管理中检查
+- 确认 `.env` 文件中的数据库配置正确
+
+**3. Nginx 配置错误**
+```bash
+# 检查 Nginx 配置语法
+nginx -t
+
+# 重新加载 Nginx 配置
+nginx -s reload
+
+# 查看 Nginx 错误日志
+tail -f /www/wwwlogs/你的域名.com.error.log
+```
+
+**4. SSL 证书问题**
+- 确保域名已正确解析到服务器
+- 检查防火墙是否开放 80 和 443 端口
+- 在宝塔面板中重新申请证书
+
+**5. 文件权限问题**
+```bash
+# 设置正确的文件权限
+chown -R www:www /www/wwwroot/Chengex
+chmod -R 755 /www/wwwroot/Chengex
+chmod -R 644 /www/wwwroot/Chengex/uploads
+```
+
+**6. 内存不足**
+- 在宝塔面板中查看系统资源使用情况
+- 考虑升级服务器配置或优化应用性能
+- 配置 swap 交换空间
+
+##### 性能优化建议
+
+**1. 启用 Gzip 压缩**
+在网站设置中开启 Gzip 压缩，减少传输数据量。
+
+**2. 配置缓存策略**
+```nginx
+# 在 Nginx 配置中添加缓存规则
+location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg)$ {
+    expires 1y;
+    add_header Cache-Control "public, immutable";
+}
+```
+
+**3. 数据库优化**
+- 定期清理数据库日志
+- 优化数据库查询索引
+- 配置合适的数据库缓存
+
+**4. 监控和告警**
+- 设置服务器资源监控告警
+- 配置应用异常通知
+- 定期检查系统日志
+
 ## ☁️ 腾讯云部署指南
 
 ### 1. 服务器环境准备
@@ -336,6 +674,54 @@ pm2 restart all
 
 # 重新加载配置
 pm2 reload ecosystem.config.js
+```
+
+#### 5. 宝塔面板特有问题
+
+**宝塔面板无法访问**
+```bash
+# 检查宝塔服务状态
+systemctl status bt
+
+# 重启宝塔服务
+systemctl restart bt
+
+# 查看宝塔端口
+cat /www/server/panel/data/port.pl
+
+# 检查防火墙设置
+ufw status
+```
+
+**宝塔 Node.js 版本问题**
+```bash
+# 在宝塔终端中切换 Node.js 版本
+nvm use 18
+
+# 或者重新安装指定版本
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+nvm install 18
+nvm use 18
+```
+
+**宝塔数据库权限问题**
+- 在宝塔面板 `数据库` 管理中检查用户权限
+- 确保数据库用户有足够的操作权限
+- 重置数据库密码并更新 `.env` 文件
+
+**宝塔 SSL 证书申请失败**
+- 确保域名已正确解析到服务器
+- 检查 80 端口是否被占用或被防火墙阻止
+- 暂时关闭 CDN 服务（如使用）
+- 在宝塔面板中清除 SSL 缓存后重新申请
+
+**宝塔文件权限问题**
+```bash
+# 通过宝塔终端设置正确权限
+chown -R www:www /www/wwwroot/Chengex
+find /www/wwwroot/Chengex -type d -exec chmod 755 {} \;
+find /www/wwwroot/Chengex -type f -exec chmod 644 {} \;
+chmod +x /www/wwwroot/Chengex/scripts/*.sh
 ```
 
 ### 日志查看
