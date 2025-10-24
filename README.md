@@ -314,14 +314,32 @@ npm run init:mysql
    - 根目录：`/www/wwwroot/Chengex`
    - PHP版本：选择 `纯静态`
 
-**5.2 配置 Nginx 反向代理**
+**5.2 端口到域名转换配置**
+
+🎯 **重要说明：从本地 3001 端口到域名访问的转换**
+
+**本地开发环境：**
+- API 服务器：`http://localhost:3001`
+- 前端应用：`http://localhost:3000`
+- 后台管理：`http://localhost:5174`
+
+**宝塔部署后：**
+- API 服务器：`https://chengex.wisdomier.com/api`
+- 前端应用：`https://chengex.wisdomier.com`
+- 后台管理：`https://chengex.admin.wisdomier.com`
+
+**转换原理：**
+通过 Nginx 反向代理，将域名请求转发到本地 3001 端口的 API 服务器，实现从端口访问到域名访问的无缝转换。
+
+**5.3 配置 Nginx 反向代理**
 
 点击网站的 `设置` → `反向代理` → `添加反向代理`：
 
 ```nginx
-# 代理名称：TravelWeb
+# 代理名称：TravelWeb API
 # 目标URL：http://127.0.0.1:3001
 # 发送域名：$host
+# 代理目录：/api/
 ```
 
 或者手动编辑 Nginx 配置文件：
@@ -343,16 +361,41 @@ server {
         try_files $uri $uri/ /admin/index.html;
     }
     
-    # API 和主应用代理
-    location / {
+    # API 代理 - 将 /api 路径代理到本地 3001 端口
+    location /api/ {
         proxy_pass http://127.0.0.1:3001;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
+        
+        # CORS 配置
+        add_header Access-Control-Allow-Origin "*" always;
+        add_header Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS" always;
+        add_header Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept, Authorization" always;
+        
+        # 处理预检请求
+        if ($request_method = 'OPTIONS') {
+            return 204;
+        }
+    }
+    
+    # 前端应用 - 静态文件服务
+    location / {
+        root /www/wwwroot/Chengex/dist;
+        try_files $uri $uri/ /index.html;
+        expires 1y;
+        add_header Cache-Control "public, immutable";
     }
 }
 ```
+
+**🔧 配置说明：**
+
+1. **API 路由代理**：`/api/` 路径的所有请求都会被代理到本地 3001 端口
+2. **静态文件服务**：前端构建文件直接由 Nginx 提供服务
+3. **CORS 配置**：允许跨域请求，支持后台管理系统访问
+4. **缓存策略**：静态资源设置长期缓存，提高性能
 
 **5.3 后台管理系统独立站点配置**
 
