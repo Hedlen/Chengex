@@ -1,0 +1,779 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About Me",
+    "services": "Travel Services",
+    "blog": "Blog",
+    "video": "Video Gallery",
+    "contact": "Contact Me",
+    "admin": "Admin Panel",
+    "brand": "Go Now China"
+  },
+  "home": {
+    "hero": {
+      "title": "Discover Chengdu with a Local Guide",
+      "subtitle": "Experience authentic Sichuan culture, taste amazing food, and explore hidden gems with personalized tours",
+      "cta": "Start Your Journey",
+      "testFunction": "Test Function"
+    },
+    "about": {
+      "title": "Your Local Chengdu Expert",
+      "description": "With years of experience living in Chengdu, I'm passionate about sharing the authentic culture, delicious food, and hidden stories of this amazing city with travelers from around the world.",
+      "skills": ["Local Culture Expert", "Food Enthusiast", "History Buff", "Language Bridge"],
+      "learnMore": "Learn More"
+    },
+    "services": {
+      "title": "Tailored Experiences",
+      "subtitle": "Choose from our curated tours or create a custom experience just for you",
+      "learnDetails": "Learn Details",
+      "serviceData": {
+        "classic": {
+          "title": "Chengdu Classic Day Tour",
+          "duration": "4-6 hours",
+          "description": "Visit Chengdu's most iconic attractions and experience the charm of Tianfu culture",
+          "highlights": ["Kuanzhai Alley", "Jinli Ancient Street", "Wuhou Shrine", "People's Park"]
+        },
+        "food": {
+          "title": "Culinary Culture Experience",
+          "duration": "2-3 hours",
+          "description": "Taste authentic Sichuan cuisine and understand the essence of Chengdu's food culture",
+          "highlights": ["Hotpot Experience", "Snack Street", "Tea House Culture", "Sichuan Cooking"]
+        },
+        "history": {
+          "title": "Historical Culture Tour",
+          "duration": "3-4 hours",
+          "description": "Deep dive into Chengdu's history and explore the traces of ancient Shu civilization",
+          "highlights": ["Jinsha Site", "Du Fu Cottage", "Qingyang Palace", "Wenshu Monastery"]
+        }
+      }
+    },
+    "blog": {
+      "title": "Travel Stories & Tips",
+      "subtitle": "Discover insider knowledge and travel inspiration",
+      "viewMore": "View All Posts",
+      "readMore": "Read More",
+      "views": "views",
+      "author": "Guide Zhang",
+      "data": {
+        "photography": {
+          "title": "Best Photography Spots in Chengdu",
+          "excerpt": "Discover the most beautiful photography locations in Chengdu to capture your wonderful moments",
+          "category": "Photography",
+          "readTime": "5 min read",
+          "views": 1234,
+          "tags": ["Photography", "Attractions", "Guide"]
+        },
+        "cuisine": {
+          "title": "In-depth Analysis of Sichuan Cuisine Culture",
+          "excerpt": "Understanding the historical origins and cultural connotations of Sichuan cuisine",
+          "category": "Food",
+          "readTime": "8 min read",
+          "views": 2156,
+          "tags": ["Food", "Culture", "Sichuan Cuisine"]
+        },
+        "metro": {
+          "title": "Chengdu Metro Travel Guide",
+          "excerpt": "Detailed guide to using Chengdu Metro for more convenient travel",
+          "category": "Transportation",
+          "readTime": "6 min read",
+          "views": 1876,
+          "tags": ["Transportation", "Metro", "Travel"]
+        }
+      }
+    }
+  },
+  "about": {
+    "title": "About Me",
+    "hero": {
+      "title": "Your Chengdu Cultural Expert",
+      "subtitle": "I'm a local guide passionate about Chengdu culture, dedicated to providing visitors with the most authentic Chengdu experience. With 8 years of professional experience and certified qualifications, I carefully customize exclusive itineraries for each visitor.",
+      "location": "Chengdu, Sichuan",
+      "languages": "Chinese / English"
+    },
+    "stats": {
+      "experience": "Years Experience",
+      "clients": "Happy Clients",
+      "tours": "Tours Completed",
+      "rating": "Rating"
+    },
+    "personal": {
+      "title": "Personal Introduction",
+      "name": "Guide Zhang",
+      "experience": "5 years of guiding experience",
+      "description": "I'm a local guide passionate about Chengdu culture with rich tourism service experience. I'm committed to providing every visitor with the most authentic and unforgettable Chengdu experience."
+    },
+    "story": {
+      "title": "My Story",
+      "subtitle": "Sharing my bond with Chengdu",
+      "passion": {
+        "title": "Love for Tour Guiding",
+        "content": "I've been fascinated by history and culture since childhood, and chose to become a tour guide after graduation. Over 8 years, I've welcomed visitors from around the world, with each explanation being a cultural transmission and exchange.",
+        "points": [
+          "Carefully customize exclusive itineraries for each visitor",
+          "Deep understanding of Chengdu's historical and cultural heritage",
+          "Continuously learning to improve professional service level",
+          "Sincerely sharing the beauty and charm of Chengdu"
+        ]
+      },
+      "chengdu": {
+        "title": "Chengdu in My Eyes",
+        "content": "Chengdu is an inclusive and open city with both deep historical and cultural heritage and modern urban vitality. Here, you can feel the comfort of slow living and experience the rich diversity of food culture.",
+        "features": [
+          "Long-standing historical and cultural heritage",
+          "Rich and diverse food culture",
+          "Livable environment",
+          "Warm and hospitable Chengdu people"
+        ]
+      }
+    },
+    "highlights": {
+      "kuanzhai": {
+        "title": "Kuanzhai Alley",
+        "description": "Experience the slow life of old Chengdu"
+      },
+      "jinli": {
+        "title": "Jinli Ancient Street",
+        "description": "Living fossil of Three Kingdoms culture"
+      },
+      "panda": {
+        "title": "Giant Panda Base",
+        "description": "Close encounter with national treasures"
+      },
+      "sichuanMuseum": {
+        "title": "Sichuan Cuisine Museum",
+        "description": "Cultural journey on the tip of the tongue"
+      }
+    },
+    "experience": "8 Years Professional Experience",
+    "skills": {
+      "title": "Professional Skills",
+      "subtitle": "Years of accumulated professional abilities to provide you with quality service",
+      "chineseGuide": "Chinese Guide",
+      "englishGuide": "English Guide",
+      "photography": "Photography",
+      "history": "History & Culture",
+      "foodRecommendation": "Food Recommendation",
+      "routePlanning": "Route Planning"
+    },
+    "certifications": {
+      "title": "Professional Certifications",
+      "subtitle": "Authorized certifications, professional service guarantee",
+      "nationalLicense": {
+        "title": "National Tour Guide License",
+        "issuer": "Ministry of Culture and Tourism of China"
+      },
+      "englishCertificate": {
+        "title": "English Tour Guide Professional Certificate",
+        "issuer": "Sichuan Tourism Association"
+      },
+      "culturalHeritage": {
+        "title": "Cultural Heritage Interpreter Certificate",
+        "issuer": "Chengdu Cultural Relics Bureau"
+      }
+    },
+    "chengdu": {
+      "title": "Chengdu Impression",
+      "subtitle": "The Land of Abundance in my eyes"
+    },
+    "languages": {
+      "title": "Language Skills",
+      "chinese": "Chinese (Native)",
+      "english": "English (Fluent)",
+      "advantage": "Bilingual service, barrier-free communication"
+    }
+  },
+  "services": {
+    "title": "Tourism Services",
+    "subtitle": "Carefully designed Chengdu experience tours",
+    "bookNow": "Book Now",
+    "learnMore": "Learn More",
+    "included": "Included",
+    "duration": "Duration",
+    "highlights": "Highlights",
+    "hero": {
+      "title": "Professional Tourism Services",
+      "subtitle": "Discover the authentic charm of Chengdu with our expert local guides"
+    },
+    "tours": {
+      "title": "Featured Tours",
+      "subtitle": "Carefully curated Chengdu experiences"
+    },
+    "packages": {
+      "title": "Tour Packages",
+      "subtitle": "Choose the perfect package for your Chengdu adventure"
+    },
+    "testimonials": {
+      "title": "What Our Guests Say",
+      "subtitle": "Real experiences from satisfied travelers"
+    },
+    "cta": {
+      "title": "Ready to Explore Chengdu?",
+      "subtitle": "Contact us today to start planning your unforgettable journey"
+    },
+    "labels": {
+      "popular": "Popular",
+      "mostPopular": "Most Popular",
+      "bookNow": "Book Now",
+      "selectPackage": "Select Package",
+      "contactNow": "Contact Now",
+      "viewMoreServices": "View More Services"
+    },
+    "features": {
+      "professionalGuide": {
+        "title": "Professional Guide Service",
+        "description": "8 years experience, licensed guide"
+      },
+      "routePlanning": {
+        "title": "Curated Route Planning", 
+        "description": "Avoid crowds, discover hidden gems"
+      },
+      "photography": {
+        "title": "Photography Guidance",
+        "description": "Capture the most beautiful moments"
+      },
+      "foodRecommendations": {
+        "title": "Authentic Food Recommendations",
+        "description": "Taste authentic Sichuan cuisine"
+      }
+    },
+    "packageDetails": {
+      "classic": {
+        "name": "Classic Day Tour",
+        "duration": "8 hours",
+        "price": "$45",
+        "includes": [
+          "Professional guide service",
+          "Attraction tickets",
+          "Transportation",
+          "Lunch recommendations"
+        ]
+      },
+      "indepth": {
+        "name": "In-depth Two-day Tour",
+        "duration": "2 days 1 night",
+        "price": "$120",
+        "includes": [
+          "Professional guide service",
+          "All attraction tickets",
+          "Hotel accommodation",
+          "Three meals arranged",
+          "Transportation"
+        ]
+      },
+      "custom": {
+        "name": "Custom Private Tour",
+        "duration": "Flexible",
+        "price": "From $75",
+        "includes": [
+          "Personalized route design",
+          "Dedicated guide service",
+          "Flexible scheduling",
+          "Special experience activities"
+        ]
+      }
+    },
+    "testimonialData": {
+      "zhang": {
+        "name": "Ms. Zhang",
+        "location": "Beijing",
+        "comment": "Very professional guide service, helped us deeply understand Chengdu's culture and history. All food recommendations were excellent!"
+      },
+      "john": {
+        "name": "John Smith",
+        "location": "USA",
+        "comment": "Amazing experience! The guide was knowledgeable and spoke excellent English. Highly recommend!"
+      },
+      "li": {
+        "name": "Mr. Li",
+        "location": "Shanghai",
+        "comment": "Traveled to Chengdu with family, children especially loved the panda base tour. The guide was patient and thoughtful."
+      }
+    },
+    "serviceData": {
+      "classic": {
+        "title": "Chengdu Classic Day Tour",
+        "description": "Visit Chengdu's most iconic attractions and experience the charm of Tianfu culture",
+        "duration": "4-6 hours",
+        "highlights": ["Kuanzhai Alley", "Jinli Ancient Street", "Wuhou Shrine", "People's Park"]
+      },
+      "food": {
+        "title": "Culinary Culture Experience",
+        "description": "Taste authentic Sichuan cuisine and understand the essence of Chengdu's food culture",
+        "duration": "2-3 hours",
+        "highlights": ["Hotpot Experience", "Snack Street", "Tea House Culture", "Sichuan Cooking"]
+      },
+      "history": {
+        "title": "Historical Culture Tour",
+        "description": "Deep dive into Chengdu's history and explore the traces of ancient Shu civilization",
+        "duration": "3-4 hours",
+        "highlights": ["Jinsha Site", "Du Fu Cottage", "Qingyang Palace", "Wenshu Monastery"]
+      }
+    }
+  },
+  "blog": {
+    "title": "Travel Blog",
+    "subtitle": "Sharing the beauty and stories of Chengdu",
+    "hero": {
+      "title": "Travel Blog",
+      "subtitle": "Sharing the beauty and stories of Chengdu"
+    },
+    "search": {
+      "placeholder": "Search articles..."
+    },
+    "featured": {
+      "title": "Featured Article"
+    },
+    "categories": {
+      "all": "All",
+      "tours": "Travel Guides",
+      "food": "Food Recommendations",
+      "culture": "Cultural Experience",
+      "tips": "Travel Tips",
+      "announcement": "Announcement",
+      "uncategorized": "Uncategorized"
+    },
+    "readMore": "Read More",
+    "share": "Share",
+    "comments": "Comments",
+    "newsletter": {
+      "title": "Subscribe to Our Travel Newsletter",
+      "subtitle": "Get the latest travel guides and exciting content",
+      "placeholder": "Please enter your email address",
+      "subscribe": "Subscribe"
+    },
+    "labels": {
+      "featured": "Featured Article",
+      "readFull": "Read Full Article",
+      "readMore": "Read More",
+      "loadMore": "Load More",
+      "subscribe": "Subscribe",
+      "noArticles": "No Articles",
+      "noArticlesDesc": "No articles have been published yet",
+      "readTime": " min read",
+      "views": " views",
+      "draft": "Draft"
+    },
+    "notFound": {
+      "title": "Article Not Found",
+      "description": "Sorry, the article you are looking for does not exist or has been deleted.",
+      "backToBlog": "Back to Blog"
+    },
+    "blogData": {
+      "photography": {
+        "title": "Best Photography Spots in Chengdu",
+        "excerpt": "Discover the most beautiful photography locations in Chengdu to capture your wonderful moments",
+        "content": "Chengdu, as a city with a long history, has many beautiful places suitable for photography...",
+        "tags": ["Photography", "Attractions", "Guide"]
+      },
+      "cuisine": {
+        "title": "In-depth Analysis of Sichuan Cuisine Culture",
+        "excerpt": "Understanding the historical origins and cultural connotations of Sichuan cuisine",
+        "content": "Sichuan cuisine, as one of China's eight major cuisines, has a profound cultural heritage...",
+        "tags": ["Food", "Culture", "Sichuan Cuisine"]
+      },
+      "metro": {
+        "title": "Chengdu Metro Travel Guide",
+        "excerpt": "Detailed guide to using Chengdu Metro for more convenient travel",
+        "content": "Chengdu's metro system is increasingly improving, providing convenient transportation for tourists...",
+        "tags": ["Transportation", "Metro", "Travel"]
+      }
+    }
+  },
+  "videos": {
+    "title": "Video Gallery",
+    "subtitle": "Capturing the beauty of Chengdu through lens",
+    "hero": {
+      "title": "Video Gallery",
+      "subtitle": "Capturing the beauty of Chengdu through lens"
+    },
+    "featured": {
+      "title": "Featured Videos",
+      "subtitle": "Most popular Chengdu travel videos"
+    },
+    "categories": {
+      "all": "All",
+      "tours": "Tours",
+      "culture": "Culture",
+      "food": "Food Culture",
+      "tips": "Travel Tips",
+      "scenery": "Scenic Spots",
+      "life": "Lifestyle",
+      "youtube": "YouTube",
+      "tiktok": "TikTok"
+    },
+    "labels": {
+      "featured": "Featured",
+      "loadMore": "Load More Videos",
+      "subscribe": "Subscribe Channel",
+      "contact": "Contact for Collaboration",
+      "noVideos": "No videos yet",
+      "popular": "Popular"
+    },
+    "stats": {
+      "originalVideos": "Original Videos",
+      "totalViews": "Total Views",
+      "subscribers": "Subscribers",
+      "rating": "User Rating"
+    },
+    "features": {
+      "hdVideo": "HD Video",
+      "onSiteFilming": "On-site Filming",
+      "professionalNarration": "Professional Narration"
+    },
+    "cta": {
+      "title": "Want to Learn More About Chengdu?",
+      "subtitle": "Subscribe to our channel for the latest Chengdu travel videos and guides"
+    },
+    "filters": {
+      "all": "All",
+      "youtube": "YouTube",
+      "tiktok": "TikTok"
+    },
+    "noVideos": {
+      "title": "No videos yet",
+      "description": "The administrator hasn't added any video content yet"
+    },
+    "actions": {
+      "watchVideo": "Click to watch"
+    },
+    "library": {
+      "title": "Video Library",
+      "popularVideos": "Popular Videos"
+    },
+    "sorting": {
+      "label": "Sort:",
+      "latest": "Latest",
+      "popular": "Most Popular",
+      "views": "View Count",
+      "likes": "Likes"
+    },
+    "filtering": {
+      "advanced": "Advanced Filters",
+      "clear": "Clear Filters",
+      "platform": "Platform:",
+      "category": "Category:",
+      "allCategories": "All Categories",
+      "duration": "Duration Range",
+      "allDurations": "All Durations",
+      "short": "Short (< 5 min)",
+      "medium": "Medium (5-20 min)",
+      "long": "Long (> 20 min)",
+      "viewCount": "View Count",
+      "allViews": "All",
+      "views1k": "1000+ views",
+      "views10k": "10000+ views",
+      "views100k": "100000+ views",
+      "publishTime": "Publish Time",
+      "allTime": "All Time",
+      "today": "Today",
+      "thisWeek": "This Week",
+      "thisMonth": "This Month",
+      "thisYear": "This Year"
+    },
+    "status": {
+      "found": "Found {count} videos",
+      "virtualScroll": "(Virtual Scroll)",
+      "loading": "Loading...",
+      "loadFailed": "Load Failed",
+      "noVideosFound": "No videos found",
+      "adjustSearchTerms": "Try adjusting search terms or filter options",
+      "resetFilters": "Reset Filters",
+      "performanceEnabled": "Performance optimization enabled",
+      "virtualScrollEnabled": "Detected {count} videos, virtual scrolling enabled for better performance"
+    },
+    "recommendations": {
+      "title": "Recommended for You",
+      "subtitle": "Video content selected based on your interests",
+      "refresh": "Refresh Recommendations"
+    },
+    "viewMode": {
+      "grid": "Grid",
+      "list": "List"
+    },
+    "sync": {
+      "error": "Sync Error",
+      "connectionError": "Connection Error",
+      "disabled": "Sync functionality disabled"
+    },
+    "search": {
+      "placeholder": "Search videos..."
+    },
+    "time": {
+      "dayAgo": "1 day ago",
+      "daysAgo": "{{count}} days ago",
+      "weeksAgo": "{{count}} weeks ago",
+      "monthsAgo": "{{count}} months ago",
+      "yearsAgo": "{{count}} years ago"
+    },
+    "interactions": {
+      "like": "Like",
+      "liked": "Liked",
+      "unlike": "Unlike",
+      "bookmark": "Bookmark",
+      "bookmarked": "Bookmarked",
+      "unbookmark": "Remove Bookmark",
+      "share": "Share",
+      "watch": "Watch",
+      "views": "Views",
+      "subscribe": "Subscribe",
+      "follow": "Follow",
+      "tooltips": {
+        "like": "Like",
+        "liked": "Unlike",
+        "bookmark": "Bookmark",
+        "bookmarked": "Remove Bookmark",
+        "share": "Share Video",
+        "subscribe": "Subscribe to YouTube Channel",
+        "follow": "Follow TikTok Account"
+      }
+    },
+    "platform": {
+      "local": "Local"
+    }
+  },
+  "contact": {
+    "title": "Contact Me",
+    "subtitle": "Start your Chengdu journey",
+    "form": {
+      "title": "Booking Inquiry",
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "service": "Service Type",
+      "date": "Travel Date",
+      "guests": "Number of Guests",
+      "message": "Detailed Requirements",
+      "submit": "Submit Inquiry",
+      "success": "Thank you for your inquiry! We will contact you soon.",
+      "error": "Failed to send, please try again",
+      "placeholders": {
+        "name": "Please enter your name",
+        "email": "Please enter your email",
+        "phone": "Please enter your phone number",
+        "service": "Please select service type",
+        "guests": "Please select number of guests",
+        "message": "Please describe your travel needs and special requirements in detail..."
+      }
+    },
+    "info": {
+      "title": "Contact Information",
+      "subtitle": "Multiple contact methods, always at your service",
+      "wechat": "WeChat Contact",
+      "response": "Usually reply within 24 hours",
+      "social": "Social Media",
+      "phone": {
+        "title": "Phone Consultation",
+        "description": "Available during business hours"
+      },
+      "email": {
+        "title": "Email Contact", 
+        "description": "Reply within 24 hours"
+      },
+      "wechatConsult": {
+        "title": "WeChat Consultation",
+        "description": "Scan to add WeChat"
+      },
+      "whatsapp": {
+        "title": "WhatsApp",
+        "description": "Quick contact, instant reply"
+      },
+      "instagram": {
+        "title": "Instagram",
+        "description": "Follow our travel sharing"
+      },
+      "office": {
+        "title": "Office Address",
+        "value": "Chunxi Road, Jinjiang District, Chengdu",
+        "description": "Face-to-face meeting by appointment"
+      }
+    },
+    "workingHours": {
+      "title": "Working Hours",
+      "emergency": "Emergency Contact: During holidays, if you have urgent matters, you can contact us via WeChat and we will reply as soon as possible.",
+      "schedule": {
+        "weekdays": "Mon - Fri",
+        "saturday": "Saturday", 
+        "sunday": "Sunday"
+      }
+    },
+    "services": {
+      "classic": "Classic Day Tour",
+      "food": "Food Culture Tour",
+      "history": "Historical Culture Tour", 
+      "panda": "Panda Base Tour",
+      "custom": "Custom Private Tour",
+      "other": "Other Services"
+    },
+    "guestOptions": {
+      "1": "1 person",
+      "2": "2 people",
+      "3-5": "3-5 people",
+      "6-10": "6-10 people",
+      "10+": "10+ people"
+    },
+    "features": {
+      "quickResponse": "Quick Response",
+      "professionalService": "Professional Service",
+      "thoughtfulArrangement": "Thoughtful Arrangement"
+    },
+    "faqs": {
+      "title": "Frequently Asked Questions",
+      "q1": {
+        "question": "How to book travel services?",
+        "answer": "You can contact us by phone, email or WeChat, and we will customize an exclusive travel plan according to your needs."
+      },
+      "q2": {
+        "question": "Do you provide English guide services?",
+        "answer": "Yes, we provide professional bilingual Chinese-English guide services to ensure international tourists can deeply understand Chengdu culture."
+      },
+      "q3": {
+        "question": "What does the tour fee include?",
+        "answer": "The fee usually includes guide services, attraction tickets, transportation, etc. Specific items will be explained in detail when booking."
+      },
+      "q4": {
+        "question": "Can I cancel or change the itinerary temporarily?",
+        "answer": "We understand that travel plans may change. Free changes are available with 24 hours advance notice. Please consult customer service for specific policies."
+      }
+    },
+    "wechatSection": {
+      "title": "WeChat QR Code Consultation",
+      "description": "Scan the QR code to add WeChat<br />Get more travel information"
+    },
+    "location": {
+      "title": "Our Location",
+      "subtitle": "Welcome to make an appointment to visit and discuss your travel plans face to face in detail",
+      "address": {
+        "title": "Office Address",
+        "detail": "Chunxi Road Pedestrian Street, Jinjiang District, Chengdu<br />International Financial Center, 15th Floor, Room 1508"
+      },
+      "transport": {
+        "title": "Transportation Guide",
+        "detail": "Metro Line 2 Chunxi Road Station Exit A<br />3 minutes walk"
+      }
+    }
+  },
+  "admin": {
+    "title": "Admin Panel",
+    "login": "Login",
+    "dashboard": "Dashboard",
+    "content": "Content Management",
+    "media": "Media Management",
+    "schedule": "Schedule Management"
+  },
+  "login": {
+    "title": "Admin Login",
+    "subtitle": "Please login to access the admin panel",
+    "username": "Username",
+    "password": "Password",
+    "usernamePlaceholder": "Enter username",
+    "passwordPlaceholder": "Enter password",
+    "submit": "Login",
+    "loggingIn": "Logging in...",
+    "footer": "Admin access only",
+    "demo": {
+      "title": "Demo Account",
+      "username": "Username",
+      "password": "Password"
+    },
+    "error": {
+      "invalidCredentials": "Invalid username or password",
+      "general": "Login failed, please try again"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error occurred",
+    "success": "Success",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "add": "Add",
+    "search": "Search",
+    "filter": "Filter",
+    "more": "More",
+    "less": "Less",
+    "viewAll": "View All",
+    "backToTop": "Back to Top",
+    "firstPage": "First",
+    "lastPage": "Last"
+  },
+  "admin": {
+    "title": "Admin Panel",
+    "tabs": {
+      "dashboard": "Dashboard",
+      "bookings": "Bookings",
+      "posts": "Posts",
+      "videos": "Videos",
+      "messages": "Messages",
+      "users": "Users",
+      "settings": "Settings"
+    },
+    "stats": {
+      "totalBookings": "Total Bookings",
+      "totalRevenue": "Total Revenue",
+      "totalPosts": "Total Posts",
+      "totalViews": "Total Views"
+    },
+    "dashboard": {
+      "title": "Admin Dashboard",
+      "lastUpdated": "Last Updated",
+      "totalBookings": "Total Bookings",
+      "blogPosts": "Blog Posts",
+      "published": "Published",
+      "videoContent": "Video Content",
+      "totalViews": "Total Views",
+      "unreadMessages": "Unread Messages",
+      "needReply": "Need Reply",
+      "recentBookings": "Recent Bookings",
+      "latestPosts": "Latest Posts"
+    },
+    "bookingStatus": {
+      "confirmed": "Confirmed",
+      "pending": "Pending",
+      "completed": "Completed"
+    },
+    "bookingManagement": "Booking Management",
+    "table": {
+      "customer": "Customer",
+      "service": "Service",
+      "amount": "Amount",
+      "status": "Status",
+      "date": "Date"
+    },
+    "logout": "Logout",
+    "logoutConfirm": "Are you sure you want to logout?",
+    "recentBookings": "Recent Bookings",
+    "recentPosts": "Recent Posts",
+    "views": "views",
+    "status": {
+      "pending": "Pending",
+      "confirmed": "Confirmed",
+      "completed": "Completed",
+      "published": "Published",
+      "draft": "Draft"
+    },
+    "bookings": {
+      "title": "Booking Management",
+      "add": "Add Booking",
+      "customer": "Customer",
+      "service": "Service",
+      "date": "Date",
+      "guests": "Guests",
+      "amount": "Amount",
+      "status": "Status"
+    },
+    "posts": {
+      "title": "Post Management",
+      "add": "Add Post"
+    },
+    "search": "Search...",
+    "filter": "Filter",
+    "actions": "Actions",
+    "comingSoon": "Coming Soon",
+    "messagesDescription": "Message management feature is under development",
+    "usersDescription": "User management feature is under development",
+    "settingsDescription": "System settings feature is under development"
+  }
+}
