@@ -97,7 +97,7 @@ DB_PASSWORD=your_secure_password
 
 # 应用配置
 NODE_ENV=production
-JWT_SECRET=your_super_secure_jwt_secret_key
+JWT_SECRET=d15cfd1f1817d5cc5c95b6047b740be918ee73b4da6aa9abb98fe29ea0bce8f8
 PORT=3001
 
 # 安全配置

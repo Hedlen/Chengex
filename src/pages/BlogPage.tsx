@@ -317,27 +317,32 @@ const BlogPage: React.FC = () => {
                           target.src = 'https://trae-api-sg.mchost.guru/api/ide/v1/text_to_image?prompt=Blog%20post%20placeholder&image_size=landscape_16_9';
                         }}
                       />
-                      <div className="absolute top-4 right-4 flex items-center gap-1 bg-white bg-opacity-90 backdrop-blur-sm text-gray-800 px-3 py-1 rounded-full text-xs font-medium shadow-lg">
-                        {(() => {
-                          const category = categories.find(cat => 
-                            cat.id === post.category || 
-                            cat.name === post.category ||
-                            cat.id === post.category_id ||
-                            (typeof post.category_id === 'string' && parseInt(post.category_id) === parseInt(cat.id))
-                          );
-                          const categoryIcon = category?.icon || '📝';
-                          const categoryName = category 
-                            ? category.name
-                            : (post.category || t('blog.categories.uncategorized'));
-                          
-                          return (
-                            <>
-                              <span>{categoryIcon}</span>
-                              <span>{categoryName}</span>
-                            </>
-                          );
-                        })()}
-                      </div>
+                      {/* 隐藏 culture 和 travel-guide 分类标签 */}
+                      {(() => {
+                        const category = categories.find(cat => 
+                          cat.id === post.category || 
+                          cat.name === post.category ||
+                          cat.id === post.category_id ||
+                          (typeof post.category_id === 'string' && parseInt(post.category_id) === parseInt(cat.id))
+                        );
+                        const categoryName = category 
+                          ? category.name
+                          : (post.category || t('blog.categories.uncategorized'));
+                        
+                        // 隐藏 culture 和 travel-guide 分类标签
+                        if (categoryName === 'culture' || categoryName === 'travel-guide') {
+                          return null;
+                        }
+                        
+                        const categoryIcon = category?.icon || '📝';
+                        
+                        return (
+                          <div className="absolute top-4 right-4 flex items-center gap-1 bg-white bg-opacity-90 backdrop-blur-sm text-gray-800 px-3 py-1 rounded-full text-xs font-medium shadow-lg">
+                            <span>{categoryIcon}</span>
+                            <span>{categoryName}</span>
+                          </div>
+                        );
+                      })()}
                     </div>
                     
                     <div className="p-6">

@@ -1,9 +1,0 @@
-{
-  "name": "travelweb-api",
-  "version": "1.0.0",
-  "type": "module",
-  "dependencies": {
-    "mysql2": "^3.6.0",
-    "dotenv": "^16.3.1"
-  }
-}

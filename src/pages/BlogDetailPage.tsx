@@ -75,14 +75,13 @@ const BlogDetailPage = () => {
             {/* Article Header */}
             <div className="text-center mb-12">
               <div className="flex items-center justify-center gap-4 mb-6">
-                <span className="bg-primary-100 text-primary-700 px-4 py-2 rounded-full text-sm font-medium">
-                  {post.category || t('blog.categories.uncategorized')}
-                </span>
-                {!post.published && (
-                  <span className="bg-yellow-100 text-yellow-700 px-4 py-2 rounded-full text-sm font-medium">
-                    {t('blog.labels.draft')}
+                {/* 隐藏 culture 和 travel-guide 分类标签和草稿标签 */}
+                {post.category && post.category !== 'culture' && post.category !== 'travel-guide' && (
+                  <span className="bg-primary-100 text-primary-700 px-4 py-2 rounded-full text-sm font-medium">
+                    {post.category || t('blog.categories.uncategorized')}
                   </span>
                 )}
+                {/* 草稿标签已隐藏 */}
               </div>
 
               <h1 className="text-4xl md:text-5xl font-bold text-text-primary mb-6 leading-tight">

@@ -462,8 +462,19 @@ const BlogManagement = () => {
                 <span>{post.author}</span>
                 <Calendar className="h-4 w-4 ml-2" />
                 <span>{post.date}</span>
-                <Folder className="h-4 w-4 ml-2" />
-                <span>{categories.find(cat => cat.id === post.category || cat.name === post.category)?.name || post.category}</span>
+                {/* 隐藏 culture 和 travel-guide 分类标签 */}
+                {(() => {
+                  const categoryName = categories.find(cat => cat.id === post.category || cat.name === post.category)?.name || post.category;
+                  if (categoryName === 'culture' || categoryName === 'travel-guide') {
+                    return null;
+                  }
+                  return (
+                    <>
+                      <Folder className="h-4 w-4 ml-2" />
+                      <span>{categoryName}</span>
+                    </>
+                  );
+                })()}
               </div>
 
               <div className="flex items-center gap-2 mb-3">
