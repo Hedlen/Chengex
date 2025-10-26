@@ -20,6 +20,7 @@ export const API_CONFIG = {
     BLOGS: '/api/blogs',
     
     // 分析相关
+    ANALYTICS_DASHBOARD: '/api/analytics/dashboard',
     ANALYTICS_COMMENTS: '/api/analytics/comments',
     ANALYTICS_VIDEOS: '/api/analytics/videos',
     ANALYTICS_BLOGS: '/api/analytics/blogs',
