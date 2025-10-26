@@ -23,10 +23,12 @@ import './index.css';
 const App: React.FC = () => {
   return (
     <AuthProvider>
-      <Router future={{
-        v7_startTransition: true,
-        v7_relativeSplatPath: true
-      }}>
+      <Router 
+        basename="/admin"
+        future={{
+          v7_startTransition: true,
+          v7_relativeSplatPath: true
+        }}>
         <Routes>
           {/* 登录页面 */}
           <Route path="/login" element={<LoginPage />} />

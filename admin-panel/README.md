@@ -58,7 +58,7 @@ VITE_ENABLE_DEBUG=true
 ```env
 VITE_NODE_ENV=production
 VITE_API_BASE_URL=https://chengex.wisdomier.com
-VITE_ALLOWED_ORIGINS=https://chengex.wisdomier.com,https://admin.chengex.wisdomier.com
+VITE_ALLOWED_ORIGINS=https://chengex.wisdomier.com
 VITE_ENABLE_DEV_TOOLS=false
 VITE_ENABLE_DEBUG=false
 VITE_ENABLE_ERROR_REPORTING=true
@@ -89,8 +89,8 @@ npm run build
 | 环境 | 主网站 | 管理后台 | API服务器 |
 |------|--------|----------|-----------|
 | 开发环境 | http://localhost:3000 | http://localhost:5174 | http://localhost:3001 |
-| 生产环境 | https://chengex.wisdomier.com | https://admin.chengex.wisdomier.com | https://chengex.wisdomier.com |
-| 测试环境 | https://test.chengex.wisdomier.com | https://test-admin.chengex.wisdomier.com | https://test.chengex.wisdomier.com |
+| 生产环境 | https://chengex.wisdomier.com | https://chengex.wisdomier.com/admin | https://chengex.wisdomier.com |
+| 测试环境 | https://test.chengex.wisdomier.com | https://test.chengex.wisdomier.com/admin | https://test.chengex.wisdomier.com |
 
 #### 重要配置项
 
@@ -105,7 +105,7 @@ npm run build
    ```
    VITE_NODE_ENV=production
    VITE_API_BASE_URL=https://chengex.wisdomier.com
-   VITE_ALLOWED_ORIGINS=https://chengex.wisdomier.com,https://admin.chengex.wisdomier.com
+   VITE_ALLOWED_ORIGINS=https://chengex.wisdomier.com
    ```
 3. 部署命令：
    ```bash
@@ -133,11 +133,13 @@ npm run build
    ```nginx
    server {
        listen 80;
-       server_name admin.chengex.wisdomier.com;
+       listen 443 ssl http2;
+       server_name chengex.wisdomier.com;
        
-       location / {
-           root /path/to/dist;
-           try_files $uri $uri/ /index.html;
+       # 管理后台
+       location /admin {
+           alias /path/to/admin-panel/dist;
+           try_files $uri $uri/ /admin/index.html;
        }
    }
    ```
