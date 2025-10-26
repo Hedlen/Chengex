@@ -97,12 +97,9 @@ export default async function handler(req, res) {
           } else {
             // 使用数据库抽象层
             const db = getDatabaseService();
-            console.log(`🔍 API查询视频 ID: ${id} (类型: ${typeof id})`);
             const videos = await db.query('SELECT * FROM videos WHERE id = ?', [id]);
-            console.log(`🎥 查询结果数量: ${videos.length}`);
             
             if (!videos || videos.length === 0) {
-              console.log('❌ 视频不存在，返回404');
               return res.status(404).json({ 
                 success: false, 
                 error: '视频不存在' 

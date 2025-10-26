@@ -4,154 +4,85 @@
 import SQLiteAdapter from './adapters/SQLiteAdapter.js';
 import MySQLAdapter from './adapters/MySQLAdapter.js';
 import MemoryAdapter from './adapters/MemoryAdapter.js';
+import SQLiteFileAdapter from './adapters/SQLiteFileAdapter.js';
 
 /**
  * 数据库工厂类
- * 负责根据配置创建相应的数据库适配器
+ * 根据配置创建相应的数据库适配器实例
  */
 export class DatabaseFactory {
+  static adapters = new Map();
+  
   /**
    * 创建数据库适配器
    * @param {Object} config - 数据库配置
-   * @param {string} config.type - 数据库类型 ('sqlite' | 'mysql')
-   * @returns {Promise<DatabaseAdapter>} 数据库适配器实例
+   * @returns {Object} 数据库适配器实例
    */
   static async createAdapter(config) {
-    if (!config || !config.type) {
-      throw new Error('数据库配置无效：缺少type字段');
-    }
-
-    switch (config.type.toLowerCase()) {
-      case 'sqlite':
-        // 如果指定了path，动态导入文件SQLite，否则使用内存SQLite
-        if (config.path) {
-          // 动态导入以避免在不需要时加载better-sqlite3
-          const { SQLiteFileAdapter } = await import('./adapters/SQLiteFileAdapter.js');
-          return new SQLiteFileAdapter(config);
-        } else {
-          return new SQLiteAdapter(config);
-        }
-      
-      case 'mysql':
-        return new MySQLAdapter(config);
-      
-      case 'memory':
-        return new MemoryAdapter(config);
-      
-      default:
-        throw new Error(`不支持的数据库类型: ${config.type}`);
-    }
-  }
-
-  /**
-   * 从环境变量创建数据库适配器
-   * @returns {Promise<DatabaseAdapter>} 数据库适配器实例
-   */
-  static async createFromEnv() {
-    const dbType = process.env.DB_TYPE || 'sqlite';
+    const { type, ...adapterConfig } = config;
     
-    let config = {
-      type: dbType
-    };
-
-    if (dbType === 'sqlite') {
-      if (process.env.SQLITE_DB_PATH) {
-        // 设置了SQLITE_DB_PATH则使用文件模式
-        config.path = process.env.SQLITE_DB_PATH;
-      }
-      // 否则使用内存模式（不设置path）
-    } else if (dbType === 'mysql') {
-      // 支持DATABASE_URL格式
-      if (process.env.DATABASE_URL) {
-        const url = new URL(process.env.DATABASE_URL);
-        config = {
-          type: 'mysql',
-          host: url.hostname,
-          port: parseInt(url.port) || 3306,
-          user: url.username,
-          password: url.password,
-          database: url.pathname.slice(1), // 移除开头的 '/'
-          connectionLimit: parseInt(process.env.DB_CONNECTION_LIMIT) || 10
-        };
-      } else {
-        // 使用分离的环境变量
-        config = {
-          type: 'mysql',
-          host: process.env.DB_HOST || 'localhost',
-          port: parseInt(process.env.DB_PORT) || 3306,
-          user: process.env.DB_USER || 'root',
-          password: process.env.DB_PASSWORD || '',
-          database: process.env.DB_NAME,
-          connectionLimit: parseInt(process.env.DB_CONNECTION_LIMIT) || 10
-        };
-      }
+    // 检查是否已有相同配置的适配器实例
+    const configKey = JSON.stringify(config);
+    if (this.adapters.has(configKey)) {
+      return this.adapters.get(configKey);
     }
-
-    return await DatabaseFactory.createAdapter(config);
-  }
-
-  /**
-   * 验证数据库配置
-   * @param {Object} config - 数据库配置
-   * @returns {boolean} 配置是否有效
-   */
-  static validateConfig(config) {
-    if (!config || typeof config !== 'object') {
-      return false;
-    }
-
-    if (!config.type) {
-      return false;
-    }
-
-    switch (config.type.toLowerCase()) {
+    
+    let adapter;
+    
+    switch (type) {
       case 'sqlite':
-        return true; // SQLite只需要type，path是可选的
-      
+        adapter = new SQLiteAdapter(adapterConfig);
+        break;
+      case 'sqlite-file':
+        adapter = new SQLiteFileAdapter(adapterConfig);
+        break;
       case 'mysql':
-        // MySQL需要基本的连接信息
-        return !!(config.host && config.user && config.database);
-      
-      default:
-        return false;
-    }
-  }
-
-  /**
-   * 获取支持的数据库类型列表
-   * @returns {Array<string>} 支持的数据库类型
-   */
-  static getSupportedTypes() {
-    return ['sqlite', 'mysql'];
-  }
-
-  /**
-   * 获取默认配置
-   * @param {string} type - 数据库类型
-   * @returns {Object} 默认配置
-   */
-  static getDefaultConfig(type) {
-    switch (type.toLowerCase()) {
-      case 'sqlite':
-        return {
-          type: 'sqlite',
-          path: './data/database.db'
-        };
-      
-      case 'mysql':
-        return {
-          type: 'mysql',
-          host: 'localhost',
-          port: 3306,
-          user: 'root',
-          password: '',
-          database: 'travelweb',
-          connectionLimit: 10
-        };
-      
+        adapter = new MySQLAdapter(adapterConfig);
+        break;
+      case 'memory':
+        adapter = new MemoryAdapter(adapterConfig);
+        break;
       default:
         throw new Error(`不支持的数据库类型: ${type}`);
     }
+    
+    // 初始化适配器
+    await adapter.init();
+    
+    // 缓存适配器实例
+    this.adapters.set(configKey, adapter);
+    
+    return adapter;
+  }
+  
+  /**
+   * 获取已创建的适配器
+   * @param {Object} config - 数据库配置
+   * @returns {Object|null} 数据库适配器实例或null
+   */
+  static getAdapter(config) {
+    const configKey = JSON.stringify(config);
+    return this.adapters.get(configKey) || null;
+  }
+  
+  /**
+   * 关闭所有适配器连接
+   */
+  static async closeAll() {
+    for (const adapter of this.adapters.values()) {
+      if (adapter.close) {
+        await adapter.close();
+      }
+    }
+    this.adapters.clear();
+  }
+  
+  /**
+   * 获取支持的数据库类型列表
+   * @returns {Array} 支持的数据库类型
+   */
+  static getSupportedTypes() {
+    return ['sqlite', 'sqlite-file', 'mysql', 'memory'];
   }
 }
 
@@ -493,7 +424,7 @@ export class DatabaseManager {
       {
         title: '希腊圣托里尼岛浪漫之旅',
         title_en: 'Romantic Journey to Santorini, Greece',
-        content: '圣托里尼岛以其独特的蓝白建筑、壮观的日落和浪漫的氛围而闻名。从伊亚小镇到费拉镇，从红海滩到黑海滩，这里是蜜月旅行的完美选择。',
+        content: '圣托里尼岛以其独特的蓝白建筑、壮观的日落和浪漫氛围而闻名。从伊亚小镇到费拉镇，从红海滩到黑海滩，这里是蜜月旅行的完美选择。',
         content_en: 'Santorini is famous for its unique blue and white architecture, spectacular sunsets, and romantic atmosphere. From Oia to Fira, from Red Beach to Black Beach, this is the perfect choice for a honeymoon trip.',
         summary: '圣托里尼岛浪漫旅行指南，包括最佳观景点、住宿推荐、美食体验。',
         summary_en: 'Romantic travel guide to Santorini including best viewpoints, accommodation recommendations, and culinary experiences.',

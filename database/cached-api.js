@@ -25,12 +25,10 @@ export async function getBlogs(filters = {}) {
   // 尝试从缓存获取
   const cached = await cacheManager.get(cacheKey);
   if (cached) {
-    console.log('📦 从缓存获取博客列表');
     return cached;
   }
   
   // 从数据库获取
-  console.log('🗄️ 从数据库获取博客列表');
   const result = await dbApi.getBlogs(filters);
   
   // 缓存结果
@@ -50,12 +48,8 @@ export async function getBlogById(id, language = 'zh') {
   // 尝试从缓存获取
   const cached = await cacheManager.get(cacheKey);
   if (cached) {
-    console.log(`📦 从缓存获取博客详情: ${id} (${language})`);
     return cached;
   }
-  
-  // 从数据库获取
-  console.log(`🗄️ 从数据库获取博客详情: ${id} (${language})`);
   const result = await dbApi.getBlogById(id, language);
   
   // 缓存结果
@@ -72,11 +66,7 @@ export async function getBlogById(id, language = 'zh') {
 export async function createBlog(blogData) {
   await ensureCacheInitialized();
   
-  console.log('🔍 [cached-api createBlog] 收到的数据:', JSON.stringify(blogData, null, 2));
-  
   const result = await dbApi.createBlog(blogData);
-  
-  console.log('🔍 [cached-api createBlog] 数据库返回结果:', JSON.stringify(result, null, 2));
   
   // 清除相关缓存
   await invalidateBlogCaches();
@@ -104,14 +94,10 @@ export async function updateBlog(id, blogData) {
 export async function deleteBlog(id) {
   await ensureCacheInitialized();
   
-  console.log('🗑️ [cached-api deleteBlog] 开始删除博客，ID:', id);
   const result = await dbApi.deleteBlog(id);
-  console.log('🗑️ [cached-api deleteBlog] 数据库删除结果:', result);
   
   // 清除相关缓存
-  console.log('🧹 [cached-api deleteBlog] 开始清除缓存...');
   await invalidateBlogCaches(id);
-  console.log('✅ [cached-api deleteBlog] 缓存清除完成');
   
   return result;
 }
@@ -127,12 +113,10 @@ export async function getBlogStats() {
   // 尝试从缓存获取
   const cached = await cacheManager.get(cacheKey);
   if (cached) {
-    console.log('📦 从缓存获取博客统计');
     return cached;
   }
   
   // 从数据库获取
-  console.log('🗄️ 从数据库获取博客统计');
   const result = await dbApi.getBlogStats();
   
   // 缓存结果
@@ -154,12 +138,10 @@ export async function getVideos(filters = {}) {
   // 尝试从缓存获取
   const cached = await cacheManager.get(cacheKey);
   if (cached) {
-    console.log('📦 从缓存获取视频列表');
     return cached;
   }
   
   // 从数据库获取
-  console.log('🗄️ 从数据库获取视频列表');
   const result = await dbApi.getVideos(filters);
   
   // 缓存结果
@@ -179,12 +161,10 @@ export async function getVideoById(id, language = 'zh') {
   // 尝试从缓存获取
   const cached = await cacheManager.get(cacheKey);
   if (cached) {
-    console.log(`📦 从缓存获取视频详情: ${id} (${language})`);
     return cached;
   }
   
   // 从数据库获取
-  console.log(`🗄️ 从数据库获取视频详情: ${id} (${language})`);
   const result = await dbApi.getVideoById(id, language);
   
   // 缓存结果
@@ -248,12 +228,10 @@ export async function getVideoStats() {
   // 尝试从缓存获取
   const cached = await cacheManager.get(cacheKey);
   if (cached) {
-    console.log('📦 从缓存获取视频统计');
     return cached;
   }
   
   // 从数据库获取
-  console.log('🗄️ 从数据库获取视频统计');
   const result = await dbApi.getVideoStats();
   
   // 缓存结果
@@ -275,12 +253,10 @@ export async function getComments(blogId, filters = {}) {
   // 尝试从缓存获取
   const cached = await cacheManager.get(cacheKey);
   if (cached) {
-    console.log(`📦 从缓存获取评论列表: ${blogId}`);
     return cached;
   }
   
   // 从数据库获取
-  console.log(`🗄️ 从数据库获取评论列表: ${blogId}`);
   const result = await dbApi.getComments(blogId, filters);
   
   // 缓存结果
@@ -300,12 +276,10 @@ export async function getCommentCount(blogId) {
   // 尝试从缓存获取
   const cached = await cacheManager.get(cacheKey);
   if (cached !== null) {
-    console.log(`📦 从缓存获取评论数量: ${blogId}`);
     return cached;
   }
   
   // 从数据库获取
-  console.log(`🗄️ 从数据库获取评论数量: ${blogId}`);
   const result = await dbApi.getCommentCount(blogId);
   
   // 缓存结果
@@ -376,12 +350,10 @@ export async function getUsers(filters = {}) {
   // 尝试从缓存获取
   const cached = await cacheManager.get(cacheKey);
   if (cached) {
-    console.log('📦 从缓存获取用户列表');
     return cached;
   }
   
   // 从数据库获取
-  console.log('🗄️ 从数据库获取用户列表');
   const result = await dbApi.getUsers(filters);
   
   // 缓存结果
@@ -401,12 +373,10 @@ export async function getUserById(id) {
   // 尝试从缓存获取
   const cached = await cacheManager.get(cacheKey);
   if (cached) {
-    console.log(`📦 从缓存获取用户详情: ${id}`);
     return cached;
   }
   
   // 从数据库获取
-  console.log(`🗄️ 从数据库获取用户详情: ${id}`);
   const result = await dbApi.getUserById(id);
   
   // 缓存结果
@@ -472,12 +442,10 @@ export async function getActivityLogs(filters = {}) {
   // 尝试从缓存获取
   const cached = await cacheManager.get(cacheKey);
   if (cached) {
-    console.log('📦 从缓存获取活动日志');
     return cached;
   }
   
   // 从数据库获取
-  console.log('🗄️ 从数据库获取活动日志');
   const result = await dbApi.getActivityLogs(filters);
   
   // 缓存结果
@@ -513,12 +481,10 @@ export async function getDashboardStats() {
   // 尝试从缓存获取
   const cached = await cacheManager.get(cacheKey);
   if (cached) {
-    console.log('📦 从缓存获取仪表板统计');
     return cached;
   }
   
   // 从数据库获取
-  console.log('🗄️ 从数据库获取仪表板统计');
   const result = await dbApi.getDashboardStats();
   
   // 缓存结果
@@ -561,12 +527,10 @@ export async function getPageViewStats(timeRange = '7d') {
   // 尝试从缓存获取
   const cached = await cacheManager.get(cacheKey);
   if (cached) {
-    console.log(`📦 从缓存获取页面浏览统计: ${timeRange}`);
     return cached;
   }
   
   // 从数据库获取
-  console.log(`🗄️ 从数据库获取页面浏览统计: ${timeRange}`);
   const result = await dbApi.getPageViewStats(timeRange);
   
   // 缓存结果
@@ -581,25 +545,15 @@ export async function getPageViewStats(timeRange = '7d') {
  * 清除博客相关缓存
  */
 async function invalidateBlogCaches(blogId = null) {
-  console.log('🧹 [invalidateBlogCaches] 开始清除博客相关缓存，blogId:', blogId);
-  
-  console.log('🧹 [invalidateBlogCaches] 清除博客列表缓存模式: blogs:*');
   await cacheManager.delPattern('blogs:*');
-  
-  console.log('🧹 [invalidateBlogCaches] 清除博客统计缓存');
   await cacheManager.del(cacheKeys.blogStats());
-  
-  console.log('🧹 [invalidateBlogCaches] 清除仪表板缓存');
   await cacheManager.del(cacheKeys.dashboard());
   
   if (blogId) {
-    console.log(`🧹 [invalidateBlogCaches] 清除特定博客缓存: ${blogId}`);
     await cacheManager.del(cacheKeys.blog(blogId));
     await cacheManager.del(cacheKeys.comments(blogId));
     await cacheManager.del(cacheKeys.commentCount(blogId));
   }
-  
-  console.log('✅ [invalidateBlogCaches] 博客缓存清除完成');
 }
 
 /**
@@ -640,10 +594,8 @@ async function invalidateUserCaches(userId = null) {
  * 清除页面浏览相关缓存
  */
 async function invalidatePageViewCaches() {
-  console.log('🧹 清除页面浏览统计缓存');
   await cacheManager.delPattern('page_views:*');
   await cacheManager.del(cacheKeys.dashboard());
-  console.log('✅ 页面浏览缓存清除完成');
 }
 
 // ==================== 缓存管理API ====================
@@ -670,8 +622,6 @@ export async function clearAllCache() {
 export async function warmupCache() {
   await ensureCacheInitialized();
   
-  console.log('🔥 开始预热缓存...');
-  
   try {
     // 预热博客数据
     await getBlogs({ limit: 20 });
@@ -683,10 +633,8 @@ export async function warmupCache() {
     
     // 预热仪表板数据
     await getDashboardStats();
-    
-    console.log('✅ 缓存预热完成');
   } catch (error) {
-    console.error('❌ 缓存预热失败:', error);
+    console.error('缓存预热失败:', error);
   }
 }
 
@@ -703,12 +651,10 @@ export async function getCategories(language = 'zh') {
   // 尝试从缓存获取
   const cached = await cacheManager.get(cacheKey);
   if (cached) {
-    console.log(`📦 从缓存获取分类列表 (${language})`);
     return cached;
   }
   
   // 从数据库获取
-  console.log(`🗄️ 从数据库获取分类列表 (${language})`);
   const result = await dbApi.getCategories(language);
   
   // 缓存结果

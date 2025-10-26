@@ -92,12 +92,10 @@ app.get('/api/blogs/stats', checkDbApi, async (req, res) => {
 app.get('/api/blogs/:id', checkDbApi, async (req, res) => {
   try {
     const language = req.query.lang || 'zh'; // 添加语言参数
-    console.log(`🔍 [GET /api/blogs/:id] 请求博客ID: ${req.params.id}, 语言: ${language}`);
     const blog = await dbApi.getBlogById(req.params.id, language);
     if (!blog) {
       return res.status(404).json({ error: '博客不存在' });
     }
-    console.log(`🔍 [GET /api/blogs/:id] 返回博客标题: ${blog.title}`);
     res.json(blog);
   } catch (error) {
     console.error('获取博客详情失败:', error);
@@ -108,7 +106,6 @@ app.get('/api/blogs/:id', checkDbApi, async (req, res) => {
 // 创建博客
 app.post('/api/blogs', checkDbApi, async (req, res) => {
   try {
-    console.log('📝 [POST /api/blogs] 收到创建博客请求');
     const blog = await dbApi.createBlog(req.body);
     res.status(201).json({
       success: true,
@@ -156,11 +153,7 @@ app.put('/api/blogs/:id', checkDbApi, async (req, res) => {
 // 删除博客
 app.delete('/api/blogs/:id', checkDbApi, async (req, res) => {
   try {
-    console.log('🗑️ [DELETE /api/blogs/:id] 收到删除请求，ID:', req.params.id);
-    
     const result = await dbApi.deleteBlog(req.params.id);
-    
-    console.log('🗑️ [DELETE /api/blogs/:id] deleteBlog返回结果:', result);
     
     if (result.success) {
       res.json({ 
@@ -207,12 +200,6 @@ app.post('/api/blogs/:id/reading-time', checkDbApi, async (req, res) => {
       ipAddress: req.ip || req.connection.remoteAddress || '',
       referrer: req.get('Referer') || ''
     };
-    
-    console.log(`📖 [POST /api/blogs/${blogId}/reading-time] 记录阅读数据:`, {
-      readingTime: readingData.readingTime,
-      scrollDepth: readingData.scrollDepth,
-      sessionId: readingData.sessionId
-    });
     
     await dbApi.recordBlogReadingTime(blogId, readingData);
     res.json({ success: true });
@@ -616,12 +603,7 @@ app.get('/api/analytics/videos', checkDbApi, async (req, res) => {
 // 批量记录统计事件
 app.post('/api/analytics/batch', async (req, res) => {
   try {
-    console.log('=== Analytics Batch Request Debug ===');
-    console.log('Content-Type:', req.headers['content-type']);
-    console.log('Raw body:', req.body);
-    console.log('Body type:', typeof req.body);
-    console.log('Body keys:', req.body ? Object.keys(req.body) : 'no body');
-    console.log('=====================================');
+
     
     if (!analyticsManager) {
       return res.status(503).json({ 

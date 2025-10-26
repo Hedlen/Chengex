@@ -97,12 +97,9 @@ export default async function handler(req, res) {
           } else {
             // 使用数据库抽象层
             const db = getDatabaseService();
-            console.log(`🔍 API查询博客 ID: ${id} (类型: ${typeof id})`);
             const blogs = await db.query('SELECT * FROM blogs WHERE id = ?', [id]);
-            console.log(`📝 查询结果数量: ${blogs.length}`);
             
             if (!blogs || blogs.length === 0) {
-              console.log('❌ 博客不存在，返回404');
               return res.status(404).json({ 
                 success: false, 
                 error: '博客不存在' 
