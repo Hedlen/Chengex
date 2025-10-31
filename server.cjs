@@ -8,13 +8,13 @@ dotenv.config({ quiet: true });
 
 const app = express();
 
-// 动态导入带缓存的数据库API
+// 动态导入数据库API
 let dbApi;
 (async () => {
   try {
-    const module = await import('./database/cached-api.js');
+    const module = await import('./database/api.js');
     dbApi = module;
-    console.log('带缓存的数据库API模块加载成功');
+    console.log('数据库API模块加载成功');
     
     // 预热缓存
     if (dbApi.warmupCache) {

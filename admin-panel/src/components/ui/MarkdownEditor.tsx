@@ -21,7 +21,6 @@ import {
 } from 'lucide-react';
 import { cn } from '../../utils/cn';
 import '@uiw/react-md-editor/markdown-editor.css';
-import '@uiw/react-markdown-preview/markdown.css';
 
 interface MarkdownEditorProps {
   value: string;
