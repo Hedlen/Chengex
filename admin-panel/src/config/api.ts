@@ -1,7 +1,7 @@
 // API配置文件
 export const API_CONFIG = {
   // 生产环境API基础URL - 管理后台独立部署时指向主网站API
-  BASE_URL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001',
+  BASE_URL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:3002',
   
   // API端点
   ENDPOINTS: {
