@@ -12,6 +12,15 @@ export class DatabaseAdapter {
   }
 
   /**
+   * 初始化数据库适配器
+   * @returns {Promise<void>}
+   */
+  async init() {
+    // 默认实现：调用连接方法
+    await this.connect();
+  }
+
+  /**
    * 连接数据库
    * @returns {Promise<void>}
    */

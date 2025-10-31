@@ -1,6 +1,10 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const dotenv = require('dotenv');
+
+// 加载环境变量
+dotenv.config({ quiet: true });
 
 const app = express();
 
@@ -1092,6 +1096,91 @@ app.post('/api/auth/logout', (req, res) => {
 // 健康检查
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+// 数据库连接测试
+app.get('/api/health/database', async (req, res) => {
+  try {
+    // 动态导入数据库管理器
+    const { dbManager } = await import('./database/DatabaseFactory.js');
+    
+    // 检查数据库管理器状态
+    const status = dbManager.getStatus();
+    
+    if (!status.connected) {
+      // 尝试初始化数据库连接
+      try {
+        await dbManager.initialize();
+        const newStatus = dbManager.getStatus();
+        
+        res.json({
+          status: 'ok',
+          database: {
+            connected: newStatus.connected,
+            type: newStatus.type,
+            config: {
+              host: process.env.DB_HOST || 'localhost',
+              port: parseInt(process.env.DB_PORT) || 3306,
+              database: process.env.DB_NAME || 'travelweb_db',
+              user: process.env.DB_USER || 'travelweb_user'
+            }
+          },
+          message: '数据库连接成功',
+          timestamp: new Date().toISOString()
+        });
+      } catch (initError) {
+        res.status(500).json({
+          status: 'error',
+          database: {
+            connected: false,
+            type: null,
+            config: {
+              host: process.env.DB_HOST || 'localhost',
+              port: parseInt(process.env.DB_PORT) || 3306,
+              database: process.env.DB_NAME || 'travelweb_db',
+              user: process.env.DB_USER || 'travelweb_user'
+            }
+          },
+          error: initError.message,
+          message: '数据库连接失败',
+          timestamp: new Date().toISOString()
+        });
+      }
+    } else {
+      res.json({
+        status: 'ok',
+        database: {
+          connected: status.connected,
+          type: status.type,
+          config: {
+            host: process.env.DB_HOST || 'localhost',
+            port: parseInt(process.env.DB_PORT) || 3306,
+            database: process.env.DB_NAME || 'travelweb_db',
+            user: process.env.DB_USER || 'travelweb_user'
+          }
+        },
+        message: '数据库已连接',
+        timestamp: new Date().toISOString()
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      status: 'error',
+      database: {
+        connected: false,
+        type: null,
+        config: {
+          host: process.env.DB_HOST || 'localhost',
+          port: parseInt(process.env.DB_PORT) || 3306,
+          database: process.env.DB_NAME || 'travelweb_db',
+          user: process.env.DB_USER || 'travelweb_user'
+        }
+      },
+      error: error.message,
+      message: '数据库连接检查失败',
+      timestamp: new Date().toISOString()
+    });
+  }
 });
 
 // 数据库信息
