@@ -55,6 +55,9 @@ function createDeploymentPackage() {
   const includeItems = [
     'dist',                    // 前端构建文件
     'admin-panel/dist',        // 后台管理系统构建文件
+    'admin-panel/.env.example', // 后台管理系统环境变量示例
+    'admin-panel/package.json', // 后台管理系统依赖配置
+    'admin-panel/README.md',   // 后台管理系统说明文档
     'src',                     // 后端源码
     'api',                     // API 路由
     'database',                // 数据库相关

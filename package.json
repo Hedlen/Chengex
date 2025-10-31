@@ -19,6 +19,7 @@
     "deploy:local": "node deploy.js local",
     "init:sqlite": "node database/init-sqlite.js",
     "init:mysql": "node database/init-mysql.js",
+    "init:mysql:safe": "node database/init-mysql-safe.js",
     "optimize:assets": "echo 'Assets optimization completed'",
     "package:baota": "npm run build:production && node scripts/package-for-baota.js",
     "upload:baota": "node scripts/upload-to-baota.js"
