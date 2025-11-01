@@ -15,7 +15,6 @@
 ### 前端功能
 - 🏞️ 景点展示和详情
 - 🗺️ 旅游路线规划
-- 👤 用户注册和登录
 - 📱 响应式设计
 - 🌐 多语言支持
 - 💬 评论系统
@@ -489,150 +488,39 @@ npm run init:sqlite
 
 ### 6. 启动开发服务器
 
+**🚀 一键启动 (推荐)：**
 ```bash
-# 方式1: 分别启动各服务 (所有平台)
-# 启动后端API服务 (端口 3002)
-npm start
-
-# 新开终端启动前端 (端口 3000)
-npm run dev
-
-# 新开终端启动管理后台 (端口 5174)
-cd admin-panel
-npm run dev
-```
-
-```bash
-# 方式2: 使用并发启动 (推荐，所有平台)
 npm run dev:all
 ```
 
-**访问地址：**
-- 🌐 **前端网站**: http://localhost:3000
-- 🔧 **管理后台**: http://localhost:5174
-- 🔌 **API服务**: http://localhost:3002
-- 📊 **API文档**: http://localhost:3002/api-docs (如果启用)
-
-### 7. 本地 Nginx 配置 (可选)
-
-如果您希望在本地使用 Nginx 进行反向代理，可以按照以下步骤配置：
-
-#### 安装 Nginx
-
-**Windows:**
+**或者分别启动各服务：**
 ```bash
-# 下载 Nginx for Windows
-# 访问 http://nginx.org/en/download.html
-# 解压到本地目录，例如：C:\nginx
+# 启动后端API服务
+npm start
+
+# 新开终端启动前端
+npm run dev
+
+# 新开终端启动管理后台
+cd admin-panel && npm run dev
 ```
 
-**Mac:**
-```bash
-# 使用 Homebrew 安装
-brew install nginx
-```
+**🌐 访问地址：**
+- **前端网站**: http://localhost:3000
+- **管理后台**: http://localhost:5174  
+- **API服务**: http://localhost:3002
 
-**Linux (Ubuntu/Debian):**
-```bash
-sudo apt update
-sudo apt install nginx
-```
+### 7. 开始开发
 
-**Linux (CentOS/RHEL):**
-```bash
-sudo yum install nginx
-# 或者
-sudo dnf install nginx
-```
+🎉 **恭喜！本地开发环境搭建完成！**
 
-#### 启动 Nginx
+**💡 开发提示：**
+- **简单直接**：本地开发无需 Nginx，各服务直接通过端口访问
+- **一键启动**：推荐使用 `npm run dev:all` 同时启动所有服务
+- **热重载**：前端和管理后台支持热重载，修改代码即时生效
+- **API调试**：可通过 http://localhost:3002/api-docs 查看API文档
 
-```bash
-# Windows PowerShell (以管理员身份运行)
-cd C:\nginx  # 或您的 Nginx 安装路径
-.\nginx.exe
-
-# Mac
-sudo nginx
-# 或者使用 Homebrew 服务
-brew services start nginx
-
-# Linux
-sudo systemctl start nginx
-# 或者
-sudo service nginx start
-```
-
-#### Nginx 配置文件
-
-编辑 Nginx 配置文件：
-
-```nginx
-# nginx.conf - 本地开发环境配置
-server {
-    listen       80;
-    server_name  localhost;
-
-    # 前端应用 (开发服务器代理)
-    location / {
-        proxy_pass http://localhost:3000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        
-        # WebSocket 支持 (Vite HMR)
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
-    }
-
-    # 管理后台 (开发服务器代理)
-    location /admin {
-        proxy_pass http://localhost:5174;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        
-        # WebSocket 支持 (Vite HMR)
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
-    }
-
-    # API 服务代理
-    location /api/ {
-        proxy_pass http://localhost:3002/api/;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
-}
-```
-
-#### Nginx 管理命令
-
-```bash
-# Windows PowerShell (在 Nginx 安装目录下)
-.\nginx.exe                # 启动
-.\nginx.exe -s reload      # 重新加载配置
-.\nginx.exe -s stop        # 停止
-.\nginx.exe -t             # 测试配置
-
-# Mac Terminal
-sudo nginx                 # 启动
-sudo nginx -s reload       # 重新加载配置
-sudo nginx -s stop         # 停止
-nginx -t                   # 测试配置
-
-# Linux Terminal
-sudo systemctl start nginx    # 启动
-sudo systemctl reload nginx   # 重新加载配置
-sudo systemctl stop nginx     # 停止
-nginx -t                      # 测试配置
-```
+**需要 Nginx？** 请参考 [服务器部署](#-服务器部署) 部分的配置说明
 
 ## 🖥️ 服务器部署 (非宝塔)
 
