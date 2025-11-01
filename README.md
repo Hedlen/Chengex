@@ -40,43 +40,112 @@
 - 📰 博客管理
 - 📋 活动日志
 
-### v1.6.1 新增特性
-- 🔧 修复API端口配置不一致问题
-- 🌐 统一开发环境端口为3002
-- 📡 修复WebSocket连接端口配置
-- 🔄 更新Vite代理配置
-- 🛠️ 修复生产环境API调用问题
+## 🚀 宝塔面板部署 (主推荐)
 
-### v1.6.0 新增特性
-- ✅ 优化Nginx配置，修复SPA路由问题
-- ✅ 改进管理后台API错误处理
-- ✅ 增强数据库连接稳定性
-- ✅ 优化项目结构，清理冗余代码
-- ✅ 完善部署文档和配置指南
+### ✅ 宝塔部署成功案例
 
-## 📦 快速开始
+**部署状态**: 已成功部署并运行  
+**部署时间**: 2025-11-01  
+**部署方式**: 本地打包上传  
 
-### 环境要求
+**成功验证项目**:
+- ✅ 前端网站正常访问和显示
+- ✅ 后端管理系统正常打开
+- ✅ 数据库连接和读取正常
+- ✅ 所有API接口正常响应
+- ✅ 数据库信息菜单显示正常 (已修复404错误)
+- ✅ 数据库迁移完成，包含成都特色旅游数据
+
+**关键修复内容**:
+1. **API接口修复**: 修复了后端管理系统数据库信息菜单的API 404错误
+2. **数据库迁移**: 成功将本地数据库迁移到宝塔MySQL数据库
+3. **环境配置**: 正确配置了生产环境的数据库连接和API路径
+
+### 🚀 快速部署步骤
+
+#### 1. 本地准备部署包
+
+```bash
+# Windows PowerShell / Mac Terminal / Linux Terminal
+npm run package:baota
+```
+
+#### 2. 宝塔面板环境准备
+
+在宝塔面板中安装：
+- **Nginx** 1.20+ 
+- **MySQL** 8.0+ 
+- **Node.js** 18.x 
+- **PM2管理器** 4.x
+
+#### 3. 上传和解压
+
+```bash
+# 上传到服务器并解压
+cd /www/wwwroot/your-domain.com   
+unzip travelweb-baota-*.zip
+```
+
+#### 4. 安装依赖和配置
+
+```bash
+# 只需安装后端API服务依赖
+npm install --production
+
+# 配置环境变量
+cp .env.example .env
+# 编辑 .env 文件配置数据库连接
+
+# 配置管理后台
+cd admin-panel
+cp .env.example .env
+# 编辑管理后台 .env 文件
+```
+
+#### 5. 启动服务
+
+```bash
+# 使用PM2启动后端API服务
+pm2 start server.cjs --name "travelweb-api"
+pm2 save
+pm2 startup
+```
+
+#### 6. 配置Nginx
+
+在宝塔面板添加网站，配置Nginx代理静态文件和API。
+
+**详细配置请参考下方完整部署指南。**
+
+## 📦 环境要求
 
 - **Node.js** 18.x 或更高版本 (推荐 18.17.0+)
 - **MySQL** 8.0+ 或 **SQLite** 3.x (开发环境可选)
 - **npm** 9+ 或 **pnpm** 8+
 - **Git** (用于克隆项目)
 
-### 本地开发环境部署
+## 💻 本地开发环境部署
 
-#### 1. **克隆项目**
+### 1. **克隆项目**
+
 ```bash
 # Windows PowerShell
 git clone <repository-url>
 cd travelweb
 
+# Mac/Linux Terminal  
+git clone <repository-url>
+cd travelweb
+
 # 或者如果已下载压缩包
-# 解压到 d:\code\travelweb 目录
+# Windows: 解压到 d:\code\travelweb 目录
+# Mac/Linux: 解压到 ~/code/travelweb 目录
 ```
 
-#### 2. **安装依赖**
+### 2. **安装依赖**
+
 ```bash
+# Windows PowerShell / Mac Terminal / Linux Terminal
 # 安装主项目依赖
 npm install
 
@@ -86,14 +155,25 @@ npm install
 cd ..
 ```
 
-#### 3. **数据库配置**
+### 3. **数据库配置**
 
 **选项A: MySQL数据库 (推荐生产环境)**
+
 ```bash
-# Windows下启动MySQL服务
+# Windows - 启动MySQL服务
 net start mysql80
 
-# 登录MySQL (Windows命令行)
+# Mac - 启动MySQL服务
+brew services start mysql
+# 或者
+sudo /usr/local/mysql/support-files/mysql.server start
+
+# Linux - 启动MySQL服务
+sudo systemctl start mysql
+# 或者
+sudo service mysql start
+
+# 登录MySQL (所有平台)
 mysql -u root -p
 
 # 创建数据库和用户
@@ -110,11 +190,16 @@ EXIT;
 # 适合快速开发和测试
 ```
 
-#### 4. **环境变量配置**
+### 4. **环境变量配置**
+
 ```bash
 # Windows PowerShell
 Copy-Item .env.example .env
 Copy-Item admin-panel\.env.example admin-panel\.env
+
+# Mac/Linux Terminal
+cp .env.example .env
+cp admin-panel/.env.example admin-panel/.env
 ```
 
 **编辑根目录 `.env` 文件：**
@@ -152,8 +237,10 @@ VITE_ENABLE_DEBUG=true
 VITE_ENABLE_ERROR_REPORTING=false
 ```
 
-#### 5. **初始化数据库**
+### 5. **初始化数据库**
+
 ```bash
+# Windows PowerShell / Mac Terminal / Linux Terminal
 # MySQL数据库初始化
 npm run init:mysql
 
@@ -161,9 +248,10 @@ npm run init:mysql
 npm run init:sqlite
 ```
 
-#### 6. **启动开发服务器**
+### 6. **启动开发服务器**
+
 ```bash
-# 方式1: 分别启动各服务
+# 方式1: 分别启动各服务 (所有平台)
 # 启动后端API服务 (端口 3002)
 npm start
 
@@ -176,7 +264,7 @@ npm run dev
 ```
 
 ```bash
-# 方式2: 使用并发启动 (推荐)
+# 方式2: 使用并发启动 (推荐，所有平台)
 npm run dev:all
 ```
 
@@ -190,33 +278,70 @@ npm run dev:all
 
 如果您希望在本地使用 Nginx 进行反向代理和静态文件服务，可以按照以下步骤配置：
 
-#### 1. **Windows 本地 Nginx 安装**
+#### 1. **本地 Nginx 安装**
 
-**下载和安装：**
+**Windows:**
 ```bash
 # 下载 Nginx for Windows
 # 访问 http://nginx.org/en/download.html
 # 下载 nginx/Windows-x.x.x 版本
-
-# 解压到本地目录，例如：
-# C:\nginx
-# D:\tools\nginx
-# 或您的自定义路径
+# 解压到本地目录，例如：C:\nginx
 ```
 
-**启动 Nginx：**
+**Mac:**
+```bash
+# 使用 Homebrew 安装
+brew install nginx
+
+# 或者下载二进制包
+# 访问 http://nginx.org/en/download.html
+```
+
+**Linux (Ubuntu/Debian):**
+```bash
+# 使用包管理器安装
+sudo apt update
+sudo apt install nginx
+```
+
+**Linux (CentOS/RHEL):**
+```bash
+# 使用 yum 或 dnf 安装
+sudo yum install nginx
+# 或者
+sudo dnf install nginx
+```
+
+#### 2. **启动 Nginx**
+
 ```bash
 # Windows PowerShell (以管理员身份运行)
 cd C:\nginx  # 或您的 Nginx 安装路径
 .\nginx.exe
 
-# 检查 Nginx 是否运行
-.\nginx.exe -t  # 测试配置文件
+# Mac
+sudo nginx
+# 或者使用 Homebrew 服务
+brew services start nginx
+
+# Linux
+sudo systemctl start nginx
+# 或者
+sudo service nginx start
+
+# 检查 Nginx 是否运行 (所有平台)
+# Windows: .\nginx.exe -t
+# Mac/Linux: nginx -t
 ```
 
-#### 2. **本地 Nginx 配置文件**
+#### 3. **本地 Nginx 配置文件**
 
-在您的 Nginx 安装目录下的 `conf` 文件夹中，编辑 `nginx.conf` 文件：
+**配置文件位置：**
+- **Windows**: `C:\nginx\conf\nginx.conf` (或您的安装路径)
+- **Mac**: `/usr/local/etc/nginx/nginx.conf` (Homebrew) 或 `/etc/nginx/nginx.conf`
+- **Linux**: `/etc/nginx/nginx.conf`
+
+编辑 `nginx.conf` 文件：
 
 ```nginx
 # nginx.conf - 本地开发环境配置
@@ -310,11 +435,10 @@ http {
 }
 ```
 
-#### 3. **Nginx 管理命令**
+#### 4. **Nginx 管理命令**
 
 ```bash
 # Windows PowerShell (在 Nginx 安装目录下)
-
 # 启动 Nginx
 .\nginx.exe
 
@@ -334,7 +458,55 @@ tasklist /fi "imagename eq nginx.exe"
 taskkill /f /im nginx.exe
 ```
 
-#### 4. **本地访问地址**
+```bash
+# Mac Terminal
+# 启动 Nginx
+sudo nginx
+# 或者使用 Homebrew 服务
+brew services start nginx
+
+# 重新加载配置
+sudo nginx -s reload
+
+# 停止 Nginx
+sudo nginx -s stop
+# 或者使用 Homebrew 服务
+brew services stop nginx
+
+# 测试配置文件
+nginx -t
+
+# 查看 Nginx 进程
+ps aux | grep nginx
+```
+
+```bash
+# Linux Terminal
+# 启动 Nginx
+sudo systemctl start nginx
+# 或者
+sudo service nginx start
+
+# 重新加载配置
+sudo systemctl reload nginx
+# 或者
+sudo service nginx reload
+
+# 停止 Nginx
+sudo systemctl stop nginx
+# 或者
+sudo service nginx stop
+
+# 测试配置文件
+nginx -t
+
+# 查看 Nginx 状态
+sudo systemctl status nginx
+# 或者
+sudo service nginx status
+```
+
+#### 5. **本地访问地址**
 
 配置完成后，您可以通过以下地址访问：
 
@@ -348,38 +520,56 @@ taskkill /f /im nginx.exe
 - 🔧 **管理后台**: http://localhost:8080/admin (静态文件)
 - 🔌 **API服务**: http://localhost:8080/api (代理到 :3002)
 
-#### 5. **故障排除**
+#### 6. **故障排除**
 
 **常见问题：**
 
 1. **端口被占用**
 ```bash
-# 检查端口占用
+# Windows - 检查端口占用
 netstat -ano | findstr :80
 netstat -ano | findstr :8080
-
 # 结束占用进程
 taskkill /f /pid <PID>
+
+# Mac/Linux - 检查端口占用
+lsof -i :80
+lsof -i :8080
+# 结束占用进程
+sudo kill -9 <PID>
 ```
 
 2. **配置文件路径错误**
 ```bash
-# 确保路径使用正斜杠或双反斜杠
-# 正确: D:/code/travelweb/dist
-# 正确: D:\\code\\travelweb\\dist
-# 错误: D:\code\travelweb\dist
+# Windows: 确保路径使用正斜杠或双反斜杠
+# 正确: D:/code/travelweb/dist 或 D:\\code\\travelweb\\dist
+
+# Mac/Linux: 使用绝对路径
+# 正确: /Users/username/code/travelweb/dist
+# 或: /home/username/code/travelweb/dist
 ```
 
 3. **权限问题**
 ```bash
-# 以管理员身份运行 PowerShell
+# Windows: 以管理员身份运行 PowerShell
 # 右键点击 PowerShell -> "以管理员身份运行"
+
+# Mac/Linux: 使用 sudo 权限
+sudo nginx
+sudo systemctl start nginx
 ```
 
 4. **防火墙阻止**
 ```bash
-# 在 Windows 防火墙中允许 nginx.exe
+# Windows: 在 Windows 防火墙中允许 nginx.exe
 # 控制面板 -> 系统和安全 -> Windows Defender 防火墙 -> 允许应用通过防火墙
+
+# Mac: 允许应用通过防火墙
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add /usr/local/bin/nginx
+
+# Linux: 配置 ufw 防火墙
+sudo ufw allow 80
+sudo ufw allow 443
 ```
 
 ## 🚀 宝塔面板部署 (推荐)
@@ -387,7 +577,7 @@ taskkill /f /pid <PID>
 ### ✅ 宝塔部署成功案例
 
 **部署状态**: 已成功部署并运行  
-**部署时间**: 2025-01-01  
+**部署时间**: 2025-11-01  
 **部署方式**: 本地打包上传  
 
 **成功验证项目**:
@@ -1000,241 +1190,83 @@ npm run init:sqlite         # 初始化SQLite数据库 (可选)
 
 ## 🛠️ 故障排除
 
-### Windows 环境常见问题
+### 常见问题解决
 
-**1. MySQL数据库连接失败**
+**1. 数据库连接失败**
 
-**Windows PowerShell 命令：**
-```powershell
-# 检查MySQL服务状态
-Get-Service -Name "MySQL80" | Select-Object Status, Name
-
-# 启动MySQL服务
-Start-Service -Name "MySQL80"
-
-# 或使用传统命令
+```bash
+# Windows - 检查MySQL服务
+Get-Service -Name "MySQL80"
 net start mysql80
 
-# 测试数据库连接
-mysql -u travelweb_user -p -h localhost travelweb_db
+# Mac - 启动MySQL
+brew services start mysql
 
-# 检查环境变量配置 (Windows)
-Get-Content .env | Select-String "DB_"
-# 或使用
-type .env | findstr "DB_"
+# Linux - 启动MySQL
+sudo systemctl start mysql
+
+# 测试连接 (所有平台)
+mysql -u travelweb_user -p -h localhost travelweb_db
 ```
 
-**解决方案：**
-- ✅ 确认MySQL服务已启动：`Get-Service MySQL80`
-- ✅ 验证数据库用户名和密码
-- ✅ 检查数据库名称是否正确
-- ✅ 确认用户权限是否足够
-- ✅ 检查防火墙是否阻止MySQL端口3306
-- ✅ 验证 `.env` 文件中的数据库配置
+**2. 端口被占用**
 
-**2. 端口被占用问题**
-
-**Windows 端口检查和处理：**
-```powershell
-# 查看端口占用 (Windows)
+```bash
+# Windows - 查看和结束进程
 netstat -ano | findstr :3002
-netstat -ano | findstr :3000
-netstat -ano | findstr :5174
-
-# 查看具体进程信息
-tasklist /fi "pid eq <PID>"
-
-# 结束占用进程
 taskkill /f /pid <PID>
 
-# 或结束特定程序
-taskkill /f /im node.exe
-taskkill /f /im nginx.exe
+# Mac/Linux - 查看和结束进程
+lsof -i :3002
+sudo kill -9 <PID>
 ```
 
-**常见端口冲突：**
-- 🔴 **端口3002**: 后端API服务
-- 🔴 **端口3000**: 前端开发服务器
-- 🔴 **端口5174**: 管理后台开发服务器
-- 🔴 **端口80/443**: Nginx服务器
+**常见端口：**
+- **3000**: 前端开发服务器
+- **3002**: 后端API服务
+- **5174**: 管理后台开发服务器
 
-**3. Node.js 和 npm 问题**
+**3. 构建失败**
 
-**Windows 环境检查：**
-```powershell
-# 检查Node.js版本
-node --version
-
-# 检查npm版本
-npm --version
-
-# 清理npm缓存
+```bash
+# 清理并重新安装 (所有平台)
 npm cache clean --force
-
-# 删除node_modules并重新安装 (Windows)
-Remove-Item -Recurse -Force node_modules
-Remove-Item -Force package-lock.json
+rm -rf node_modules package-lock.json  # Mac/Linux
+Remove-Item -Recurse -Force node_modules  # Windows
 npm install
 
-# 检查全局安装的包
-npm list -g --depth=0
-
-# 更新npm到最新版本
-npm install -g npm@latest
-```
-
-**4. PM2进程管理问题**
-
-**Windows PM2 命令：**
-```powershell
-# 查看进程状态
-pm2 status
-
-# 重启服务
-pm2 restart travelweb-api
-
-# 查看日志
-pm2 logs travelweb-api
-
-# 查看实时日志
-pm2 logs travelweb-api --lines 50
-
-# 停止所有进程
-pm2 stop all
-
-# 删除所有进程
-pm2 delete all
-
-# 重新加载PM2配置
-pm2 reload ecosystem.config.js
-
-# 查看PM2进程详情
-pm2 show travelweb-api
-```
-
-**5. 构建和编译问题**
-
-**Windows 构建故障排除：**
-```powershell
-# 检查Node.js版本 (需要18.x或更高)
+# 检查Node.js版本 (需要18.x+)
 node --version
-
-# 检查可用内存
-Get-ComputerInfo | Select-Object TotalPhysicalMemory, AvailablePhysicalMemory
-
-# 增加Node.js内存限制
-$env:NODE_OPTIONS="--max-old-space-size=4096"
-
-# 清理构建缓存
-npm run clean
-Remove-Item -Recurse -Force dist
-Remove-Item -Recurse -Force admin-panel\dist
-
-# 重新构建
-npm run build:all
-
-# 检查构建输出
-Get-ChildItem -Recurse dist
-Get-ChildItem -Recurse admin-panel\dist
 ```
 
-**6. 权限和文件访问问题**
+**4. PM2进程问题**
 
-**Windows 权限检查：**
-```powershell
-# 检查文件权限
-Get-Acl "d:\code\travelweb" | Format-List
-
-# 以管理员身份运行PowerShell
-# 右键点击PowerShell -> "以管理员身份运行"
-
-# 检查文件是否被占用
-Get-Process | Where-Object {$_.Path -like "*travelweb*"}
-
-# 检查防火墙状态
-Get-NetFirewallProfile | Select-Object Name, Enabled
-
-# 临时关闭Windows Defender实时保护 (如果需要)
-# 设置 -> 更新和安全 -> Windows 安全中心 -> 病毒和威胁防护
-```
-
-**7. 网络和代理问题**
-
-**Windows 网络诊断：**
-```powershell
-# 测试网络连接
-Test-NetConnection -ComputerName localhost -Port 3002
-Test-NetConnection -ComputerName localhost -Port 3000
-
-# 检查代理设置
-netsh winhttp show proxy
-
-# 重置网络配置
-netsh winsock reset
-netsh int ip reset
-
-# 刷新DNS缓存
-ipconfig /flushdns
-
-# 检查hosts文件
-Get-Content C:\Windows\System32\drivers\etc\hosts
-```
-
-### Linux/生产环境问题
-
-**1. 服务器环境问题**
 ```bash
-# 检查系统资源
-free -h
-df -h
-top
-
-# 检查服务状态
-systemctl status nginx
-systemctl status mysql
-
-# 查看系统日志
-journalctl -u nginx -f
-journalctl -u mysql -f
-```
-
-**2. 日志查看**
-
-**生产环境日志：**
-```bash
-# PM2日志
+# 查看和管理PM2进程 (所有平台)
+pm2 status
+pm2 restart travelweb-api
 pm2 logs travelweb-api
-
-# Nginx日志
-tail -f /var/log/nginx/access.log
-tail -f /var/log/nginx/error.log
-
-# 应用程序日志
-tail -f /www/wwwroot/travelweb/logs/app.log
-tail -f /www/wwwroot/travelweb/logs/error.log
 ```
 
-**Windows 本地日志：**
-```powershell
-# 查看应用程序事件日志
-Get-EventLog -LogName Application -Newest 50
+### 日志查看
 
-# 查看系统事件日志
-Get-EventLog -LogName System -Newest 50
+```bash
+# 开发环境日志
+npm start  # 查看后端日志
+npm run dev  # 查看前端日志
 
-# PM2日志 (Windows)
-pm2 logs travelweb-api --lines 100
+# 生产环境日志
+pm2 logs travelweb-api  # PM2日志
+tail -f /var/log/nginx/error.log  # Nginx日志 (Linux)
 ```
 
 ### 性能优化建议
 
-**Windows 开发环境优化：**
-1. **关闭不必要的后台程序**
-2. **增加虚拟内存**
-3. **使用SSD硬盘**
-4. **关闭Windows Defender实时扫描 (开发目录)**
-5. **使用Windows Terminal替代CMD**
-6. **配置Git Bash或WSL2**
+**开发环境优化：**
+- 关闭不必要的后台程序
+- 使用SSD硬盘
+- 增加Node.js内存限制：`export NODE_OPTIONS="--max-old-space-size=4096"`
+- 使用现代终端 (Windows Terminal / iTerm2 / Gnome Terminal)
 
 ## 📁 项目结构
 
@@ -1252,85 +1284,25 @@ travelweb/
 └── README.md              # 项目说明
 ```
 
-## 🔒 安全配置
+## 🔒 生产环境安全清单
 
-**生产环境安全检查清单：**
-
-**基础安全：**
-- [ ] 修改默认的JWT密钥为复杂随机字符串 (至少32位)
-- [ ] 设置强密码的数据库用户 (包含大小写字母、数字、特殊字符)
-- [ ] 将数据库用户名从 `travelweb_user` 改为 `travelweb_prod`
-- [ ] 更新数据库名称为 `travelweb_db`
-- [ ] 配置防火墙规则，只开放必要端口 (80, 443, 22)
-
-**HTTPS配置：**
-- [ ] 申请并配置SSL证书 (推荐Let's Encrypt免费证书)
-- [ ] 配置HTTP自动重定向到HTTPS
-- [ ] 启用HSTS (HTTP Strict Transport Security)
-- [ ] 配置安全的SSL协议和加密套件
-
-**应用安全：**
-- [ ] 设置正确的CORS白名单，移除localhost地址
-- [ ] 启用请求频率限制 (Rate Limiting)
-- [ ] 配置安全头部 (Security Headers)
-- [ ] 移除开发环境的调试信息和错误详情
-
-**服务器安全：**
-- [ ] 定期更新系统和软件包
-- [ ] 配置自动安全更新
-- [ ] 设置日志监控和告警
-- [ ] 定期备份数据库和重要文件
-- [ ] 限制SSH访问，使用密钥认证
+**必须配置项：**
+- [ ] 修改JWT密钥为复杂随机字符串 (至少32位)
+- [ ] 设置强密码的数据库用户
+- [ ] 配置HTTPS和SSL证书
+- [ ] 设置正确的CORS白名单
+- [ ] 配置防火墙规则 (只开放80, 443端口)
 
 ## 📞 技术支持
 
-如果在部署过程中遇到问题，请检查：
-1. 服务器环境是否满足要求
-2. 所有配置文件是否正确
-3. 服务是否正常启动
-4. 网络和防火墙设置
-
-## 📋 部署记录
-
-### v1.3.0 部署记录 (2025-10-31)
-
-**部署环境：**
-- 服务器：ubuntu@101.42.21.165
-- 端口：3002
-- 数据库：MySQL 8.0
-- 部署方式：宝塔面板
-
-**部署成果：**
-✅ **数据库连接成功**：MySQL数据库连接正常，支持UTF-8编码  
-✅ **数据迁移完成**：成功迁移成都特色数据到生产环境  
-✅ **应用程序运行**：Node.js服务正常启动，API接口可用  
-✅ **缓存系统工作**：内存缓存模式正常运行  
-
-**迁移的数据内容：**
-- 👥 **用户数据**：3个用户账户（包括管理员）
-- 📂 **分类数据**：6个旅游分类（旅游攻略、美食推荐、住宿体验、交通出行、摄影分享、文化体验）
-- 🎬 **视频数据**：40个成都特色视频（大熊猫基地、宽窄巷子、锦里古街、川剧变脸等）
-- 📝 **博客数据**：2篇成都特色博客文章
-
-**解决的技术问题：**
-1. **DatabaseFactory.js 缺失方法**：更新了服务器上的 DatabaseFactory.js 文件，添加了 createFromEnv 方法
-2. **DatabaseAdapter.js 缺失 init 方法**：更新了基础适配器类，确保所有适配器都有 init 方法
-3. **MySQL适配器兼容性**：更新了 MySQLAdapter.js 文件，确保与最新的数据库工厂兼容
-4. **权限问题**：修复了 shared/ 目录的权限问题，确保应用程序可以正常创建文件
-
-**服务状态：**
-- 🟢 **数据库服务**：MySQL连接池正常工作
-- 🟢 **API服务**：Express服务器运行在端口3002
-- 🟢 **缓存服务**：内存缓存正常工作（Redis不可用时的备用方案）
-- 🟢 **统计服务**：页面浏览统计功能正常
-
-**下一步计划：**
-- [ ] 配置Nginx反向代理
-- [ ] 申请SSL证书启用HTTPS
-- [ ] 配置域名解析
-- [ ] 设置定期数据备份
+如果遇到部署问题，请检查：
+1. Node.js版本是否为18.x+
+2. 数据库连接配置是否正确
+3. 端口是否被占用
+4. 防火墙设置是否正确
 
 ---
 
 **版本**: v1.6.1  
-**更新时间**: 2025年11月
+**更新时间**: 2025年11月  
+**部署状态**: ✅ 宝塔面板生产环境运行中

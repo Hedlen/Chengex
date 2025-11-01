@@ -88,7 +88,7 @@ npm run build
 
 | 环境 | 主网站 | 管理后台 | API服务器 |
 |------|--------|----------|-----------|
-| 开发环境 | http://localhost:3000 | http://localhost:5174 | http://localhost:3001 |
+| 开发环境 | http://localhost:3000 | http://localhost:5174 | http://localhost:3002 |
 | 生产环境 | https://chengex.wisdomier.com | https://chengex.wisdomier.com/admin | https://chengex.wisdomier.com |
 | 测试环境 | https://test.chengex.wisdomier.com | https://test.chengex.wisdomier.com/admin | https://test.chengex.wisdomier.com |
 
