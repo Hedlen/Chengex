@@ -58,80 +58,329 @@
 
 ### 环境要求
 
-- **Node.js** 18+
-- **MySQL** 8.0+
-- **npm** 或 **pnpm**
+- **Node.js** 18.x 或更高版本 (推荐 18.17.0+)
+- **MySQL** 8.0+ 或 **SQLite** 3.x (开发环境可选)
+- **npm** 9+ 或 **pnpm** 8+
+- **Git** (用于克隆项目)
 
-### 本地开发
+### 本地开发环境部署
 
-1. **克隆项目**
+#### 1. **克隆项目**
 ```bash
+# Windows PowerShell
 git clone <repository-url>
 cd travelweb
+
+# 或者如果已下载压缩包
+# 解压到 d:\code\travelweb 目录
 ```
 
-2. **安装依赖**
+#### 2. **安装依赖**
 ```bash
+# 安装主项目依赖
 npm install
-cd admin-panel && npm install && cd ..
+
+# 安装管理后台依赖
+cd admin-panel
+npm install
+cd ..
 ```
 
-3. **创建MySQL数据库**
+#### 3. **数据库配置**
+
+**选项A: MySQL数据库 (推荐生产环境)**
 ```bash
-# 登录MySQL
+# Windows下启动MySQL服务
+net start mysql80
+
+# 登录MySQL (Windows命令行)
 mysql -u root -p
 
 # 创建数据库和用户
 CREATE DATABASE travelweb_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-CREATE USER 'travelweb_user'@'localhost' IDENTIFIED BY 'your_password';
+CREATE USER 'travelweb_user'@'localhost' IDENTIFIED BY 'your_strong_password';
 GRANT ALL PRIVILEGES ON travelweb_db.* TO 'travelweb_user'@'localhost';
 FLUSH PRIVILEGES;
 EXIT;
 ```
 
-4. **配置环境变量**
+**选项B: SQLite数据库 (快速开发)**
 ```bash
-cp .env.example .env
-cp admin-panel/.env.example admin-panel/.env
+# 无需额外配置，系统会自动创建SQLite文件
+# 适合快速开发和测试
 ```
 
-编辑 `.env` 文件，配置MySQL连接：
+#### 4. **环境变量配置**
+```bash
+# Windows PowerShell
+Copy-Item .env.example .env
+Copy-Item admin-panel\.env.example admin-panel\.env
+```
+
+**编辑根目录 `.env` 文件：**
 ```env
-# 数据库配置
+# 数据库配置 (MySQL)
 DB_TYPE=mysql
 DB_HOST=localhost
 DB_PORT=3306
 DB_NAME=travelweb_db
 DB_USER=travelweb_user
-DB_PASSWORD=your_password
+DB_PASSWORD=your_strong_password
+
+# 或者使用SQLite (开发环境)
+# DB_TYPE=sqlite
+# DB_PATH=./database/travelweb.db
 
 # 服务配置
-PORT=3001
+PORT=3002
 NODE_ENV=development
-JWT_SECRET=your-jwt-secret-key
+JWT_SECRET=your-jwt-secret-key-at-least-32-characters
+
+# API配置
+API_BASE_URL=http://localhost:3002
+CORS_ORIGINS=http://localhost:3000,http://localhost:5174
 ```
 
-5. **初始化数据库**
+**编辑 `admin-panel/.env` 文件：**
+```env
+# 管理后台配置
+VITE_NODE_ENV=development
+VITE_API_BASE_URL=http://localhost:3002
+VITE_ALLOWED_ORIGINS=http://localhost:5174
+VITE_ENABLE_DEV_TOOLS=true
+VITE_ENABLE_DEBUG=true
+VITE_ENABLE_ERROR_REPORTING=false
+```
+
+#### 5. **初始化数据库**
 ```bash
+# MySQL数据库初始化
 npm run init:mysql
+
+# 或者SQLite数据库初始化
+npm run init:sqlite
 ```
 
-5. **启动开发服务器**
+#### 6. **启动开发服务器**
 ```bash
-# 启动前端 (端口 3000)
+# 方式1: 分别启动各服务
+# 启动后端API服务 (端口 3002)
+npm start
+
+# 新开终端启动前端 (端口 3000)
 npm run dev
 
-# 启动后台管理 (端口 5174)
-cd admin-panel && npm run dev
-
-# 启动后端服务 (端口 3001)
-npm start
+# 新开终端启动管理后台 (端口 5174)
+cd admin-panel
+npm run dev
 ```
 
-访问地址：
-- 前端: http://localhost:3000
-- 管理后台: http://localhost:5174
-- API: http://localhost:3001
+```bash
+# 方式2: 使用并发启动 (推荐)
+npm run dev:all
+```
+
+**访问地址：**
+- 🌐 **前端网站**: http://localhost:3000
+- 🔧 **管理后台**: http://localhost:5174
+- 🔌 **API服务**: http://localhost:3002
+- 📊 **API文档**: http://localhost:3002/api-docs (如果启用)
+
+### 本地 Nginx 配置 (可选)
+
+如果您希望在本地使用 Nginx 进行反向代理和静态文件服务，可以按照以下步骤配置：
+
+#### 1. **Windows 本地 Nginx 安装**
+
+**下载和安装：**
+```bash
+# 下载 Nginx for Windows
+# 访问 http://nginx.org/en/download.html
+# 下载 nginx/Windows-x.x.x 版本
+
+# 解压到本地目录，例如：
+# C:\nginx
+# D:\tools\nginx
+# 或您的自定义路径
+```
+
+**启动 Nginx：**
+```bash
+# Windows PowerShell (以管理员身份运行)
+cd C:\nginx  # 或您的 Nginx 安装路径
+.\nginx.exe
+
+# 检查 Nginx 是否运行
+.\nginx.exe -t  # 测试配置文件
+```
+
+#### 2. **本地 Nginx 配置文件**
+
+在您的 Nginx 安装目录下的 `conf` 文件夹中，编辑 `nginx.conf` 文件：
+
+```nginx
+# nginx.conf - 本地开发环境配置
+worker_processes  1;
+
+events {
+    worker_connections  1024;
+}
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+    sendfile        on;
+    keepalive_timeout  65;
+
+    # 开发环境服务器配置
+    server {
+        listen       80;
+        server_name  localhost;
+
+        # 前端应用 (开发服务器代理)
+        location / {
+            proxy_pass http://localhost:3000;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            
+            # WebSocket 支持 (Vite HMR)
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+        }
+
+        # 管理后台 (开发服务器代理)
+        location /admin {
+            proxy_pass http://localhost:5174;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            
+            # WebSocket 支持 (Vite HMR)
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+        }
+
+        # API 服务代理
+        location /api/ {
+            proxy_pass http://localhost:3002/api/;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            
+            # 超时设置
+            proxy_connect_timeout 30s;
+            proxy_send_timeout 30s;
+            proxy_read_timeout 30s;
+        }
+    }
+
+    # 生产环境预览配置 (构建后的静态文件)
+    server {
+        listen       8080;
+        server_name  localhost;
+        root         D:/code/travelweb/dist;  # 修改为您的项目路径
+        index        index.html;
+
+        # 前端应用 (静态文件)
+        location / {
+            try_files $uri $uri/ /index.html;
+        }
+
+        # 管理后台 (静态文件)
+        location /admin {
+            alias D:/code/travelweb/admin-panel/dist;  # 修改为您的项目路径
+            try_files $uri $uri/ /index.html;
+        }
+
+        # API 服务代理
+        location /api/ {
+            proxy_pass http://localhost:3002/api/;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+    }
+}
+```
+
+#### 3. **Nginx 管理命令**
+
+```bash
+# Windows PowerShell (在 Nginx 安装目录下)
+
+# 启动 Nginx
+.\nginx.exe
+
+# 重新加载配置
+.\nginx.exe -s reload
+
+# 停止 Nginx
+.\nginx.exe -s stop
+
+# 测试配置文件
+.\nginx.exe -t
+
+# 查看 Nginx 进程
+tasklist /fi "imagename eq nginx.exe"
+
+# 强制结束 Nginx 进程 (如果需要)
+taskkill /f /im nginx.exe
+```
+
+#### 4. **本地访问地址**
+
+配置完成后，您可以通过以下地址访问：
+
+**开发环境 (端口 80)：**
+- 🌐 **前端网站**: http://localhost (代理到 :3000)
+- 🔧 **管理后台**: http://localhost/admin (代理到 :5174)
+- 🔌 **API服务**: http://localhost/api (代理到 :3002)
+
+**生产预览 (端口 8080)：**
+- 🌐 **前端网站**: http://localhost:8080 (静态文件)
+- 🔧 **管理后台**: http://localhost:8080/admin (静态文件)
+- 🔌 **API服务**: http://localhost:8080/api (代理到 :3002)
+
+#### 5. **故障排除**
+
+**常见问题：**
+
+1. **端口被占用**
+```bash
+# 检查端口占用
+netstat -ano | findstr :80
+netstat -ano | findstr :8080
+
+# 结束占用进程
+taskkill /f /pid <PID>
+```
+
+2. **配置文件路径错误**
+```bash
+# 确保路径使用正斜杠或双反斜杠
+# 正确: D:/code/travelweb/dist
+# 正确: D:\\code\\travelweb\\dist
+# 错误: D:\code\travelweb\dist
+```
+
+3. **权限问题**
+```bash
+# 以管理员身份运行 PowerShell
+# 右键点击 PowerShell -> "以管理员身份运行"
+```
+
+4. **防火墙阻止**
+```bash
+# 在 Windows 防火墙中允许 nginx.exe
+# 控制面板 -> 系统和安全 -> Windows Defender 防火墙 -> 允许应用通过防火墙
+```
 
 ## 🚀 宝塔面板部署 (推荐)
 
@@ -286,14 +535,17 @@ DB_USER=your_username
 DB_PASSWORD=your_password
 
 # 服务配置
-PORT=3001
+PORT=3002
 NODE_ENV=production
 
-# JWT密钥 (必须修改)
-JWT_SECRET=your-super-secret-jwt-key-here
+# JWT密钥 (必须修改为至少32位字符)
+JWT_SECRET=your-super-secret-jwt-key-at-least-32-characters-long
 
 # CORS配置 (替换为实际域名)
-CORS_ORIGIN=https://chengex.wisdomier.com
+CORS_ORIGINS=https://chengex.wisdomier.com,https://www.chengex.wisdomier.com
+
+# API配置
+API_BASE_URL=https://chengex.wisdomier.com
 ```
 
 **5.2 配置管理后台环境变量**
@@ -383,11 +635,58 @@ npm run init:mysql
 
 #### 7. 启动服务
 
-使用PM2启动后端服务：
+**使用PM2启动后端服务：**
 ```bash
-pm2 start server.cjs --name "travelweb-api"
+# 启动后端API服务
+pm2 start server.cjs --name "travelweb-api" --env production
+
+# 查看服务状态
+pm2 status
+
+# 查看日志
+pm2 logs travelweb-api
+
+# 保存PM2配置
 pm2 save
+
+# 设置开机自启
 pm2 startup
+
+# 重启服务 (如果需要)
+pm2 restart travelweb-api
+
+# 停止服务 (如果需要)
+pm2 stop travelweb-api
+```
+
+**PM2 配置文件 (可选)：**
+
+创建 `ecosystem.config.js` 文件：
+```javascript
+module.exports = {
+  apps: [{
+    name: 'travelweb-api',
+    script: 'server.cjs',
+    cwd: '/www/wwwroot/chengex.wisdomier.com',
+    instances: 1,
+    autorestart: true,
+    watch: false,
+    max_memory_restart: '1G',
+    env: {
+      NODE_ENV: 'production',
+      PORT: 3002
+    },
+    error_file: './logs/err.log',
+    out_file: './logs/out.log',
+    log_file: './logs/combined.log',
+    time: true
+  }]
+};
+```
+
+使用配置文件启动：
+```bash
+pm2 start ecosystem.config.js
 ```
 
 #### 8. Nginx配置
@@ -431,18 +730,30 @@ server {
     ssl_protocols TLSv1.2 TLSv1.3;
     ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384;
 
-    # API代理
+    # API代理 (端口3002)
     location /api/ {
         proxy_pass http://localhost:3002/api/;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
         
-        # 添加超时设置
+        # 超时设置
         proxy_connect_timeout 30s;
         proxy_send_timeout 30s;
         proxy_read_timeout 30s;
+        
+        # 缓存控制
+        proxy_cache_bypass $http_upgrade;
+        proxy_no_cache $http_upgrade;
+        
+        # CORS支持
+        add_header Access-Control-Allow-Origin * always;
+        add_header Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS" always;
+        add_header Access-Control-Allow-Headers "DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization" always;
     }
 
     # 静态资源缓存
@@ -482,8 +793,8 @@ server {
 
 | 配置文件 | 本地开发 | 生产环境 | 说明 |
 |---------|---------|---------|------|
-| 前端API配置 | `http://localhost:3001` | `https://chengex.wisdomier.com/api` | 前端调用后端API的地址 |
-| 管理后台API配置 | `http://localhost:3001` | `https://chengex.wisdomier.com/api` | 管理后台调用API的地址 |
+| 前端API配置 | `http://localhost:3002` | `https://chengex.wisdomier.com/api` | 前端调用后端API的地址 |
+| 管理后台API配置 | `http://localhost:3002` | `https://chengex.wisdomier.com/api` | 管理后台调用API的地址 |
 | 管理后台访问地址 | `http://localhost:5174` | `https://chengex.wisdomier.com/admin` | 管理后台访问地址 |
 | Nginx配置 | `server_name localhost` | `server_name chengex.wisdomier.com` | 服务器域名 |
 | CORS配置 | `localhost:3000,localhost:5174` | `chengex.wisdomier.com` | 跨域白名单 |
@@ -493,7 +804,7 @@ server {
 1. **前端配置文件** (`src/config/api.js` 或类似文件)：
 ```javascript
 // 本地开发
-const API_BASE_URL = 'http://localhost:3001/api';
+const API_BASE_URL = 'http://localhost:3002/api';
 
 // 生产环境 - 修改为：
 const API_BASE_URL = 'https://chengex.wisdomier.com/api';
@@ -503,7 +814,7 @@ const API_BASE_URL = 'https://chengex.wisdomier.com/api';
 ```env
 # 本地开发
 VITE_NODE_ENV=development
-VITE_API_BASE_URL=http://localhost:3001
+VITE_API_BASE_URL=http://localhost:3002
 VITE_ALLOWED_ORIGINS=http://localhost:3000,http://localhost:5174
 VITE_ENABLE_DEV_TOOLS=true
 VITE_ENABLE_DEBUG=true
@@ -538,7 +849,7 @@ CORS_ORIGIN=https://chengex.wisdomier.com
 | `DB_USER` | `travelweb_user` | `生产环境用户名` | ✅ 必须 |
 | `DB_PASSWORD` | `开发密码` | `强密码` | ✅ 必须 |
 | `JWT_SECRET` | `开发密钥` | `复杂随机密钥` | ✅ 必须 |
-| `PORT` | `3001` | `3001` | ✅ 保持一致 |
+| `PORT` | `3002` | `3002` | ✅ 保持一致 |
 | `CORS_ORIGIN` | `localhost地址` | `实际域名` | ✅ 必须 |
 
 **管理后台配置 (`admin-panel/.env`)：**
@@ -546,7 +857,7 @@ CORS_ORIGIN=https://chengex.wisdomier.com
 | 配置项 | 本地开发 | 生产环境 | 是否必须修改 |
 |-------|---------|---------|-------------|
 | `VITE_NODE_ENV` | `development` | `production` | ✅ 必须 |
-| `VITE_API_BASE_URL` | `http://localhost:3001` | `https://chengex.wisdomier.com` | ✅ 必须 |
+| `VITE_API_BASE_URL` | `http://localhost:3002` | `https://chengex.wisdomier.com` | ✅ 必须 |
 | `VITE_ALLOWED_ORIGINS` | `localhost地址` | `实际域名` | ✅ 必须 |
 | `VITE_ENABLE_DEV_TOOLS` | `true` | `false` | ✅ 必须 |
 | `VITE_ENABLE_DEBUG` | `true` | `false` | ✅ 必须 |
@@ -578,7 +889,7 @@ DB_USER=travelweb_prod
 DB_PASSWORD=your-strong-password-here
 
 # 服务配置
-PORT=3001
+PORT=3002
 NODE_ENV=production
 
 # 安全配置 (必须修改)
@@ -689,63 +1000,241 @@ npm run init:sqlite         # 初始化SQLite数据库 (可选)
 
 ## 🛠️ 故障排除
 
-### 常见问题
+### Windows 环境常见问题
 
 **1. MySQL数据库连接失败**
-```bash
+
+**Windows PowerShell 命令：**
+```powershell
 # 检查MySQL服务状态
-# Windows
+Get-Service -Name "MySQL80" | Select-Object Status, Name
+
+# 启动MySQL服务
+Start-Service -Name "MySQL80"
+
+# 或使用传统命令
 net start mysql80
 
 # 测试数据库连接
 mysql -u travelweb_user -p -h localhost travelweb_db
 
-# 检查环境变量配置
-cat .env | grep DB_
-```
-- 确认MySQL服务已启动
-- 验证数据库用户名和密码
-- 检查数据库名称是否正确
-- 确认用户权限是否足够
-
-**2. 端口被占用**
-```bash
-# 查看端口占用
-netstat -tlnp | grep :3000
-# 杀死进程
-kill -9 <PID>
+# 检查环境变量配置 (Windows)
+Get-Content .env | Select-String "DB_"
+# 或使用
+type .env | findstr "DB_"
 ```
 
-**3. PM2进程问题**
-```bash
+**解决方案：**
+- ✅ 确认MySQL服务已启动：`Get-Service MySQL80`
+- ✅ 验证数据库用户名和密码
+- ✅ 检查数据库名称是否正确
+- ✅ 确认用户权限是否足够
+- ✅ 检查防火墙是否阻止MySQL端口3306
+- ✅ 验证 `.env` 文件中的数据库配置
+
+**2. 端口被占用问题**
+
+**Windows 端口检查和处理：**
+```powershell
+# 查看端口占用 (Windows)
+netstat -ano | findstr :3002
+netstat -ano | findstr :3000
+netstat -ano | findstr :5174
+
+# 查看具体进程信息
+tasklist /fi "pid eq <PID>"
+
+# 结束占用进程
+taskkill /f /pid <PID>
+
+# 或结束特定程序
+taskkill /f /im node.exe
+taskkill /f /im nginx.exe
+```
+
+**常见端口冲突：**
+- 🔴 **端口3002**: 后端API服务
+- 🔴 **端口3000**: 前端开发服务器
+- 🔴 **端口5174**: 管理后台开发服务器
+- 🔴 **端口80/443**: Nginx服务器
+
+**3. Node.js 和 npm 问题**
+
+**Windows 环境检查：**
+```powershell
+# 检查Node.js版本
+node --version
+
+# 检查npm版本
+npm --version
+
+# 清理npm缓存
+npm cache clean --force
+
+# 删除node_modules并重新安装 (Windows)
+Remove-Item -Recurse -Force node_modules
+Remove-Item -Force package-lock.json
+npm install
+
+# 检查全局安装的包
+npm list -g --depth=0
+
+# 更新npm到最新版本
+npm install -g npm@latest
+```
+
+**4. PM2进程管理问题**
+
+**Windows PM2 命令：**
+```powershell
 # 查看进程状态
 pm2 status
+
 # 重启服务
 pm2 restart travelweb-api
+
 # 查看日志
 pm2 logs travelweb-api
+
+# 查看实时日志
+pm2 logs travelweb-api --lines 50
+
+# 停止所有进程
+pm2 stop all
+
+# 删除所有进程
+pm2 delete all
+
+# 重新加载PM2配置
+pm2 reload ecosystem.config.js
+
+# 查看PM2进程详情
+pm2 show travelweb-api
 ```
 
-**4. 构建失败**
-- 检查Node.js版本 (需要18.x)
-- 清理缓存：`npm cache clean --force`
-- 重新安装依赖：`rm -rf node_modules && npm install`
+**5. 构建和编译问题**
 
-**5. 无法访问管理后台**
-- 检查Nginx配置中的 `/admin` 路径
-- 确认 `admin-panel/dist` 目录存在
-- 检查文件权限
+**Windows 构建故障排除：**
+```powershell
+# 检查Node.js版本 (需要18.x或更高)
+node --version
 
-### 日志查看
+# 检查可用内存
+Get-ComputerInfo | Select-Object TotalPhysicalMemory, AvailablePhysicalMemory
 
+# 增加Node.js内存限制
+$env:NODE_OPTIONS="--max-old-space-size=4096"
+
+# 清理构建缓存
+npm run clean
+Remove-Item -Recurse -Force dist
+Remove-Item -Recurse -Force admin-panel\dist
+
+# 重新构建
+npm run build:all
+
+# 检查构建输出
+Get-ChildItem -Recurse dist
+Get-ChildItem -Recurse admin-panel\dist
+```
+
+**6. 权限和文件访问问题**
+
+**Windows 权限检查：**
+```powershell
+# 检查文件权限
+Get-Acl "d:\code\travelweb" | Format-List
+
+# 以管理员身份运行PowerShell
+# 右键点击PowerShell -> "以管理员身份运行"
+
+# 检查文件是否被占用
+Get-Process | Where-Object {$_.Path -like "*travelweb*"}
+
+# 检查防火墙状态
+Get-NetFirewallProfile | Select-Object Name, Enabled
+
+# 临时关闭Windows Defender实时保护 (如果需要)
+# 设置 -> 更新和安全 -> Windows 安全中心 -> 病毒和威胁防护
+```
+
+**7. 网络和代理问题**
+
+**Windows 网络诊断：**
+```powershell
+# 测试网络连接
+Test-NetConnection -ComputerName localhost -Port 3002
+Test-NetConnection -ComputerName localhost -Port 3000
+
+# 检查代理设置
+netsh winhttp show proxy
+
+# 重置网络配置
+netsh winsock reset
+netsh int ip reset
+
+# 刷新DNS缓存
+ipconfig /flushdns
+
+# 检查hosts文件
+Get-Content C:\Windows\System32\drivers\etc\hosts
+```
+
+### Linux/生产环境问题
+
+**1. 服务器环境问题**
+```bash
+# 检查系统资源
+free -h
+df -h
+top
+
+# 检查服务状态
+systemctl status nginx
+systemctl status mysql
+
+# 查看系统日志
+journalctl -u nginx -f
+journalctl -u mysql -f
+```
+
+**2. 日志查看**
+
+**生产环境日志：**
 ```bash
 # PM2日志
 pm2 logs travelweb-api
 
 # Nginx日志
-tail -f /www/wwwroot/travelweb/logs/access.log
+tail -f /var/log/nginx/access.log
+tail -f /var/log/nginx/error.log
+
+# 应用程序日志
+tail -f /www/wwwroot/travelweb/logs/app.log
 tail -f /www/wwwroot/travelweb/logs/error.log
 ```
+
+**Windows 本地日志：**
+```powershell
+# 查看应用程序事件日志
+Get-EventLog -LogName Application -Newest 50
+
+# 查看系统事件日志
+Get-EventLog -LogName System -Newest 50
+
+# PM2日志 (Windows)
+pm2 logs travelweb-api --lines 100
+```
+
+### 性能优化建议
+
+**Windows 开发环境优化：**
+1. **关闭不必要的后台程序**
+2. **增加虚拟内存**
+3. **使用SSD硬盘**
+4. **关闭Windows Defender实时扫描 (开发目录)**
+5. **使用Windows Terminal替代CMD**
+6. **配置Git Bash或WSL2**
 
 ## 📁 项目结构
 
