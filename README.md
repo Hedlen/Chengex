@@ -233,12 +233,32 @@ VITE_ENABLE_ERROR_REPORTING=true
 4. 密码：设置强密码
 5. 字符集：`utf8mb4`
 
-**6.2 数据库初始化**
+**6.2 数据库初始化和迁移**
 
 ```bash
-# 初始化数据库
+# 方式1: 使用统一迁移脚本 (推荐，支持本地数据迁移到远程)
+node database/migrate-database.cjs \
+  --source-host localhost \
+  --source-user root \
+  --source-password your_local_password \
+  --source-database travelweb_db \
+  --target-host localhost \
+  --target-user travelweb_user \
+  --target-password your_baota_password \
+  --target-database travelweb_db \
+  --backup \
+  --verify
+
+# 方式2: 传统初始化方式 (仅初始化空数据库)
 npm run init:mysql
 ```
+
+**迁移工具特性**:
+- ✅ **完整迁移**: 迁移所有表结构和数据
+- ✅ **数据验证**: 自动验证迁移后的数据完整性  
+- ✅ **备份支持**: 迁移前自动备份目标数据库
+- ✅ **错误处理**: 完善的错误处理和回滚机制
+- ✅ **干运行模式**: 支持 `--dry-run` 预览迁移操作
 
 #### 7. 启动服务
 
@@ -984,64 +1004,16 @@ SOFTWARE.
 
 ## 🙏 致谢
 
-### 技术栈致谢
-
 感谢以下开源项目和技术栈的支持：
 
-**前端技术栈：**
-- [React](https://reactjs.org/) - 用户界面构建库
-- [TypeScript](https://www.typescriptlang.org/) - JavaScript的超集，提供类型安全
-- [Vite](https://vitejs.dev/) - 快速的前端构建工具
-- [Tailwind CSS](https://tailwindcss.com/) - 实用优先的CSS框架
+**核心技术栈：**
+- [React](https://reactjs.org/) + [TypeScript](https://www.typescriptlang.org/) + [Vite](https://vitejs.dev/) - 前端技术栈
+- [Node.js](https://nodejs.org/) + [Express](https://expressjs.com/) + [MySQL](https://www.mysql.com/) - 后端技术栈
+- [宝塔面板](https://www.bt.cn/) + [Nginx](https://nginx.org/) + [PM2](https://pm2.keymetrics.io/) - 部署运维
 
-**后端技术栈：**
-- [Node.js](https://nodejs.org/) - JavaScript运行时环境
-- [Express](https://expressjs.com/) - Web应用框架
-- [MySQL](https://www.mysql.com/) - 关系型数据库管理系统
-
-**部署和运维：**
-- [宝塔面板](https://www.bt.cn/) - 服务器管理面板
-- [Nginx](https://nginx.org/) - 高性能Web服务器
-- [PM2](https://pm2.keymetrics.io/) - Node.js进程管理器
-
-**开发工具：**
-- [Git](https://git-scm.com/) - 版本控制系统
-- [npm](https://www.npmjs.com/) - 包管理器
-- [ESLint](https://eslint.org/) - 代码检查工具
-- [Prettier](https://prettier.io/) - 代码格式化工具
-
-### 特别感谢
-
-- **成都旅游数据提供方** - 为项目提供了丰富的成都特色旅游景点数据
-- **开源社区** - 为项目提供了大量的技术支持和解决方案
-- **测试用户** - 在开发过程中提供了宝贵的反馈和建议
-
-### 贡献者
-
-感谢所有为这个项目做出贡献的开发者：
-
-- **项目维护者** - 负责项目的整体架构和开发
-- **前端开发团队** - 负责用户界面和用户体验的优化
-- **后端开发团队** - 负责API接口和数据库设计
-- **运维团队** - 负责部署和服务器维护
-
-### 社区支持
-
-如果您觉得这个项目对您有帮助，欢迎：
-
-- ⭐ 给项目点个星标
-- 🐛 报告问题和建议
-- 🔧 提交代码改进
-- 📖 完善文档
-- 💬 分享使用经验
-
-### 联系方式
-
-如果您有任何问题或建议，欢迎通过以下方式联系我们：
-
-- **GitHub Issues**: [项目Issues页面]
-- **邮箱**: [项目邮箱]
-- **技术交流群**: [QQ群或微信群]
+**特别感谢：**
+- 成都旅游数据提供方 - 提供丰富的旅游景点数据
+- 开源社区 - 提供技术支持和解决方案
 
 ---
 
