@@ -1,8 +1,10 @@
 // API配置
 export const API_CONFIG = {
-  BASE_URL: import.meta.env.PROD 
-    ? '' // 生产环境使用相对路径，自动使用当前域名
-    : 'http://localhost:3001',
+  BASE_URL: import.meta.env.VITE_API_BASE_URL || (
+    import.meta.env.PROD 
+      ? '' // 生产环境使用相对路径，自动使用当前域名
+      : 'http://localhost:3002'
+  ),
   ENDPOINTS: {
     VIDEOS: '/api/videos',
     BLOGS: '/api/blogs',

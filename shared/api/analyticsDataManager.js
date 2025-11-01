@@ -182,7 +182,7 @@ export class AnalyticsDataManager {
    */
   async getPageViewStats(timeRange = '7d') {
     try {
-      const response = await fetch(`http://localhost:3001/api/analytics/page-views?timeRange=${timeRange}`);
+      const response = await fetch(`http://localhost:3002/api/analytics/page-views?timeRange=${timeRange}`);
       if (!response.ok) {
         throw new Error(`API请求失败: ${response.status}`);
       }
@@ -358,7 +358,7 @@ export class AnalyticsDataManager {
    */
   async getDashboardStats(timeRange = '7d') {
     try {
-      const response = await fetch(`http://localhost:3001/api/analytics/dashboard`);
+      const response = await fetch(`http://localhost:3002/api/analytics/dashboard`);
       if (!response.ok) {
         throw new Error(`API请求失败: ${response.status}`);
       }

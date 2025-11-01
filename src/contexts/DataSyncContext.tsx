@@ -80,7 +80,9 @@ interface DataSyncProviderProps {
 
 export const DataSyncProvider: React.FC<DataSyncProviderProps> = ({
   children,
-  wsEndpoint = 'ws://localhost:3001/api/sync',
+  wsEndpoint = import.meta.env.PROD 
+    ? `wss://${window.location.host}/api/sync`  // 生产环境使用当前域名的wss
+    : 'ws://localhost:3002/api/sync',           // 开发环境使用localhost
   authToken,
   reconnectInterval = 5000,
   maxReconnectAttempts = 5,
